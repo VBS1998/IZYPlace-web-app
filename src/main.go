@@ -13,17 +13,18 @@ var (
 
 func main() {
 
-	http.HandleFunc("/aa/", greet)
+	http.HandleFunc("/", hello)
 
 	log.Printf("serving http://%s\n", addr)
 	log.Fatal(http.ListenAndServe(addr, nil))
 }
 
-func greet(w http.ResponseWriter, r *http.Request) {
+func hello(w http.ResponseWriter, r *http.Request) {
 	name := strings.Trim(r.URL.Path, "/")
 	if name == "" {
 		name = "Hello"
 	}
 
-	fmt.Printf("Hello %s\n", name)
+	response := "Hello " + name
+	fmt.Fprint(w, response)
 }
