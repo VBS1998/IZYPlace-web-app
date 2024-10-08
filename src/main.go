@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"strings"
 )
 
 var (
@@ -13,18 +12,16 @@ var (
 
 func main() {
 
-	http.HandleFunc("/", hello)
+	http.Handle("/", http.FileServer(http.Dir("../frontend/out")))
+
+	http.HandleFunc("/api/hello", hello)
 
 	log.Printf("serving http://%s\n", addr)
 	log.Fatal(http.ListenAndServe(addr, nil))
 }
 
 func hello(w http.ResponseWriter, r *http.Request) {
-	name := strings.Trim(r.URL.Path, "/")
-	if name == "" {
-		name = "Hello"
-	}
 
-	response := "Hello " + name
+	response := "Hello World"
 	fmt.Fprint(w, response)
 }

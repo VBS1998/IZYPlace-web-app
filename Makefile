@@ -9,4 +9,4 @@ build-back:
 build: build-front build-back
 
 run:
-	cd src && ./main
+	cd src && ./a.out
