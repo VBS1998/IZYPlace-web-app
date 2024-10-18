@@ -1,27 +1,19 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 )
 
 var (
-	addr = "localhost:8080"
+	port = "8000"
 )
 
 func main() {
 
-	http.Handle("/", http.FileServer(http.Dir("../frontend/out")))
+	server := CreateServer()
 
-	http.HandleFunc("/api/hello", hello)
+	log.Printf("serving at port %s", port)
+	log.Fatal(http.ListenAndServe(":"+port, server.Router).Error())
 
-	log.Printf("serving http://%s\n", addr)
-	log.Fatal(http.ListenAndServe(addr, nil))
-}
-
-func hello(w http.ResponseWriter, r *http.Request) {
-
-	response := "Hello World"
-	fmt.Fprint(w, response)
 }
