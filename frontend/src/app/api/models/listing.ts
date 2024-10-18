@@ -5,3 +5,4 @@ export interface Listing {
     ImageURL: string;
     Rating: number;
   }
+  
