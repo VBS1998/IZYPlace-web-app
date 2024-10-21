@@ -5,15 +5,21 @@ import (
 	"net/http"
 
 	"github.com/VBS1998/base-web-app/src/models"
+	"github.com/VBS1998/base-web-app/src/services"
 	"github.com/gorilla/mux"
 )
 
 func GetListings(w http.ResponseWriter, r *http.Request) {
-	listings := models.ListingsMock()
+	listings, err := services.GetListingService().GetAllListings()
+
+	if err != nil {
+		http.Error(w, "Error Getting Listings", http.StatusInternalServerError)
+		return
+	}
 
 	w.Header().Set("Content-Type", "application/json")
 
-	err := json.NewEncoder(w).Encode(listings)
+	err = json.NewEncoder(w).Encode(listings)
 
 	if err != nil {
 		// Handle encoding error if any
