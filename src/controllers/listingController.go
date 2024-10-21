@@ -5,11 +5,12 @@ import (
 	"net/http"
 
 	"github.com/VBS1998/base-web-app/src/models"
+	"github.com/VBS1998/base-web-app/src/services"
 	"github.com/gorilla/mux"
 )
 
 func GetListings(w http.ResponseWriter, r *http.Request) {
-	listings := models.ListingsMock()
+	listings, _ := services.GetListingService().GetAllListings() //TODO: Handle Error
 
 	w.Header().Set("Content-Type", "application/json")
 

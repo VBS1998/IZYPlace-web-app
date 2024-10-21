@@ -8,7 +8,6 @@ import (
 	"sync"
 	"time"
 
-	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -19,10 +18,9 @@ const (
 )
 
 type MongoClient struct {
-	// DbClient
+	DbClient
 	Hostname string
 	Port     string
-	Database *mongo.Database
 	c        *mongo.Client
 }
 
@@ -53,12 +51,12 @@ func newMongoClient(hostname string, port string) *MongoClient {
 	}
 }
 
-func (client *MongoClient) Connect(database string) {
+func (client *MongoClient) Connect() {
 
 	user := os.Getenv("MONGO_DB_USERNAME")
 	pass := os.Getenv("MONGO_DB_PASSWORD")
 
-	uri := fmt.Sprintf("mongodb://%s:%s@%s:%s/%s?authSource=admin", user, pass, client.Hostname, client.Port, database)
+	uri := fmt.Sprintf("mongodb://%s:%s@%s:%s", user, pass, client.Hostname, client.Port)
 
 	// Set up a context with a timeout for the MongoDB connection
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -69,8 +67,6 @@ func (client *MongoClient) Connect(database string) {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	client.Database = client.c.Database(database)
 
 	// Ping the database to ensure connection is established
 	if err := client.c.Ping(ctx, nil); err != nil {
@@ -93,53 +89,6 @@ func (client *MongoClient) Disconnect() {
 	}
 }
 
-func (client *MongoClient) GetAll(collectionName string) ([]bson.M, error) {
-	// Create a context with a timeout
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
-
-	// Get the collection from the client
-	collection := client.Database.Collection(collectionName)
-
-	// Find all documents in the collection
-	cursor, err := collection.Find(ctx, bson.D{})
-	if err != nil {
-		return nil, err
-	}
-	defer cursor.Close(ctx)
-
-	// Slice to hold the results
-	var results []bson.M
-
-	// Iterate through the cursor and decode each document
-	for cursor.Next(ctx) {
-		var doc bson.M
-		if err := cursor.Decode(&doc); err != nil {
-			return nil, err
-		}
-		results = append(results, doc)
-	}
-
-	// Check for errors during iteration
-	if err := cursor.Err(); err != nil {
-		return nil, err
-	}
-
-	return results, nil
-}
-
-func (client *MongoClient) Get(collection string, id string) {
-	log.Fatal("Method not implemented!")
-}
-
-func (client *MongoClient) Add(collection string, obj []byte) {
-	log.Fatal("Method not implemented!")
-}
-
-func (client *MongoClient) Update(collection string, obj []byte) {
-	log.Fatal("Method not implemented!")
-}
-
-func (client *MongoClient) Remove(collection string, id string) {
-	log.Fatal("Method not implemented!")
+func (client *MongoClient) GetDatabase(database string) *mongo.Database {
+	return client.c.Database(database)
 }

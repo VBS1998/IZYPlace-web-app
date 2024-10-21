@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/VBS1998/base-web-app/src/db"
+	"github.com/VBS1998/base-web-app/src/services"
 )
 
 var (
@@ -16,10 +17,10 @@ func main() {
 	server := CreateServer()
 
 	mongoClient := db.GetMongoClient()
-	mongoClient.Connect("izyplace")
+	mongoClient.Connect()
 	defer mongoClient.Disconnect()
 
-	log.Print(mongoClient.GetAll("listings"))
+	services.SetupListingService(mongoClient)
 
 	log.Printf("serving at port %s", port)
 	log.Fatal(http.ListenAndServe(":"+port, server.Router).Error())
