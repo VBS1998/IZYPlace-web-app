@@ -1,12 +1,15 @@
 all: build run
 
-build-front:
-	cd frontend && npm run build
+build-ui:
+	cd ui && make build
 
-build-back:
-	cd src && go build -o a.out . 
+build-api:
+	cd src && go build -o izy_api . 
 
-build: build-front build-back
+build: build-ui build-api
 
 run:
-	cd src && ./a.out
+	cd src && ./izy_api
+
+clear:
+	rm ./izy_api && cd ui && make clear
