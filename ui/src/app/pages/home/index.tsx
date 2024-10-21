@@ -12,7 +12,6 @@ export default function HomePage() {
   useEffect(() => {
     getListings().then((listings) => {
       setEventSpaces(listings)
-      console.log(listings)
     })
   }, [])
 
@@ -47,16 +46,16 @@ export default function HomePage() {
             <h2 className={styles.catalogTitle}>Featured Event Spaces</h2>
             <div className={styles.catalogGrid}>
               {eventSpaces.map((space : Listing) => (
-                <div key={space.ID} className={styles.spaceCard}>
-                  <Image src={space.ImageURL} alt={space.Name} width={300} height={200} className={styles.spaceImage} />
+                <div key={space.id} className={styles.spaceCard}>
+                  <Image src={space.imageUrl} alt={space.name} width={300} height={200} className={styles.spaceImage} />
                   <div className={styles.spaceContent}>
-                    <h3 className={styles.spaceName}>{space.Name}</h3>
-                    <p className={styles.spaceLocation}>{space.Location}</p>
+                    <h3 className={styles.spaceName}>{space.name}</h3>
+                    <p className={styles.spaceLocation}>{space.location}</p>
                     <div className={styles.spaceRating}>
                       <Star className={styles.ratingIcon} />
                       <span>
                         <h4 className={styles.ratingText}>
-                          {space.Rating.toFixed(1)}
+                          {space.rating.toFixed(1)}
                         </h4>
                       </span>
                     </div>

@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"encoding/json"
 	"net/http"
 
 	"github.com/VBS1998/base-web-app/src/models"
@@ -17,15 +16,7 @@ func GetListings(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-
-	err = json.NewEncoder(w).Encode(listings)
-
-	if err != nil {
-		// Handle encoding error if any
-		http.Error(w, "Error encoding JSON", http.StatusInternalServerError)
-		return
-	}
+	encondeAndSend(w, listings)
 }
 
 func GetListing(w http.ResponseWriter, r *http.Request) {
@@ -33,13 +24,8 @@ func GetListing(w http.ResponseWriter, r *http.Request) {
 
 	for _, listing := range models.ListingsMock() {
 		if listing.ID == id {
-			err := json.NewEncoder(w).Encode(listing)
-
-			if err != nil {
-				// Handle encoding error if any
-				http.Error(w, "Error encoding JSON", http.StatusInternalServerError)
-				return
-			}
+			encondeAndSend(w, listing)
+			break
 		}
 	}
 
