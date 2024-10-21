@@ -33,7 +33,7 @@ func (r *IZYServer) setupAnonymousRoutes(router *mux.Router) {
 func (c *IZYServer) setupStaticFiles(router *mux.Router) {
 	router.PathPrefix("/").Handler(
 		http.StripPrefix("/",
-			http.FileServer(http.Dir("../frontend/out")),
+			http.FileServer(http.Dir("../ui/out")),
 		),
 	)
 }
