@@ -10,11 +10,16 @@ import (
 )
 
 func GetListings(w http.ResponseWriter, r *http.Request) {
-	listings, _ := services.GetListingService().GetAllListings() //TODO: Handle Error
+	listings, err := services.GetListingService().GetAllListings()
+
+	if err != nil {
+		http.Error(w, "Error Getting Listings", http.StatusInternalServerError)
+		return
+	}
 
 	w.Header().Set("Content-Type", "application/json")
 
-	err := json.NewEncoder(w).Encode(listings)
+	err = json.NewEncoder(w).Encode(listings)
 
 	if err != nil {
 		// Handle encoding error if any
