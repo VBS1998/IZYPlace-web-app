@@ -4,6 +4,10 @@ import (
 	"github.com/VBS1998/base-web-app/src/models"
 )
 
+const (
+	MONGO_DATABASE_NAME = "izyplace"
+)
+
 type ListingRepositoryInterface interface {
-	GetAll(collectionName string) ([]*models.Listing, error)
+	GetAll() ([]*models.Listing, error)
 }

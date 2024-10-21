@@ -5,9 +5,14 @@ import (
 	"log"
 	"time"
 
+	"github.com/VBS1998/base-web-app/src/db"
 	"github.com/VBS1998/base-web-app/src/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
+)
+
+const (
+	LISTINGS_MONGO_COLLECTION_NAME = "listings"
 )
 
 type ListingMongoRepository struct {
@@ -15,19 +20,19 @@ type ListingMongoRepository struct {
 	Database *mongo.Database
 }
 
-func NewListingMongoRepository(database *mongo.Database) *ListingMongoRepository {
+func NewListingMongoRepository(client *db.MongoClient) *ListingMongoRepository {
 	return &ListingMongoRepository{
-		Database: database,
+		Database: client.GetDatabase(MONGO_DATABASE_NAME),
 	}
 }
 
-func (repo *ListingMongoRepository) GetAll(collectionName string) ([]*models.Listing, error) {
+func (repo *ListingMongoRepository) GetAll() ([]*models.Listing, error) {
 	// Create a context with a timeout
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
 	// Get the collection from the client
-	collection := repo.Database.Collection(collectionName)
+	collection := repo.Database.Collection(LISTINGS_MONGO_COLLECTION_NAME)
 
 	// Find all documents in the collection
 	cursor, err := collection.Find(ctx, bson.D{})

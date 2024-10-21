@@ -9,11 +9,6 @@ import (
 	repositories "github.com/VBS1998/base-web-app/src/repositories/listings"
 )
 
-const (
-	DATABASE_NAME           = "izyplace" // Better place?
-	LISTING_COLLECTION_NAME = "listings"
-)
-
 type ListingService struct {
 	repository repositories.ListingRepositoryInterface
 }
@@ -28,7 +23,7 @@ func SetupListingService(client db.DbClient) {
 
 		switch c := client.(type) {
 		case *db.MongoClient:
-			repository = repositories.NewListingMongoRepository(c.GetDatabase(DATABASE_NAME))
+			repository = repositories.NewListingMongoRepository(c)
 		default:
 			log.Fatal("Client type not supported")
 		}
@@ -47,5 +42,5 @@ func GetListingService() *ListingService {
 }
 
 func (service *ListingService) GetAllListings() ([]*models.Listing, error) {
-	return service.repository.GetAll(LISTING_COLLECTION_NAME)
+	return service.repository.GetAll()
 }
