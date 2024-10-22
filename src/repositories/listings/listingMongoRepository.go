@@ -42,7 +42,7 @@ func (repo *ListingMongoRepository) GetAll() ([]*models.Listing, error) {
 	defer cursor.Close(ctx)
 
 	// Slice to hold the results
-	var results []*models.Listing
+	results := []*models.Listing{}
 
 	// Iterate through the cursor and decode each document
 	for cursor.Next(ctx) {
