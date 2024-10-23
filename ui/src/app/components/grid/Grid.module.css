@@ -1,0 +1,31 @@
+.catalogSection {
+    padding: 3rem 1rem;
+}
+
+.catalogContent {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.catalogTitle {
+    font-size: 1.875rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+
+.catalogGrid {
+    display: grid;
+    gap: 2rem;
+}
+
+@media (min-width: 768px) {
+    .catalogGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .catalogGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

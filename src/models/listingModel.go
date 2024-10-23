@@ -1,11 +1,11 @@
 package models
 
 type Listing struct {
-	ID       string  `bson:"_id,omitempty"`
-	Name     string  `bson:"name,omitempty"`
-	Location string  `bson:"location,omitempty"`
-	Rating   float64 `bson:"rating,omitempty"`
-	ImageURL string  `bson:"imageUrl,omitempty"`
+	ID       string  `json:"id,omitempty" bson:"_id,omitempty"`
+	Name     string  `json:"name,omitempty" bson:"name,omitempty"`
+	Location string  `json:"location,omitempty" bson:"location,omitempty"`
+	Rating   float64 `json:"rating,omitempty" bson:"rating,omitempty"`
+	ImageURL string  `json:"imageUrl,omitempty" bson:"imageUrl,omitempty"`
 }
 
 func ListingsMock() []Listing {

@@ -1,8 +1,8 @@
 export interface Listing {
-    ID: string;
-    Name: string;
-    Location: string;
-    ImageURL: string;
-    Rating: number;
+    id: string;
+    name: string;
+    location: string;
+    imageUrl: string;
+    rating: number;
   }
   
