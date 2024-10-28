@@ -1,4 +1,4 @@
-
+"use client"
 import styles from './HomePage.module.css'
 import { useEffect, useState } from "react"
 import { getListings } from "@/app/api/requests/listings"
@@ -19,14 +19,14 @@ export default function HomePage() {
 
   return (
     <div className={styles.container}>
-      {PageHeader()}
+      <PageHeader />
 
       <main>
-        {HeroBanner()}
-        {Grid({listingsData: eventSpaces})}
+        <HeroBanner />
+        <Grid listingsData={eventSpaces} />
       </main>
 
-      {Footer()}
+      <Footer />
     </div>
   )
 }

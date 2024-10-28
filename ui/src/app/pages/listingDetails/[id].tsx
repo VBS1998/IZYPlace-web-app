@@ -1,8 +1,13 @@
+"use client"
 import { MapPin, Star, Users, DollarSign } from "lucide-react"
 import Image from "next/image"
 import styles from './ListingDetails.module.css'
 import PageHeader from "@/app/components/header/header"
 import Footer from "@/app/components/footer/footer"
+import { useEffect, useState } from "react"
+import { getListings } from "@/app/api/requests/listings"
+import { Listing } from "@/app/api/models/listing"
+import { useRouter } from "next/router"
 
 interface SpaceDetails {
     id: number
@@ -16,10 +21,39 @@ interface SpaceDetails {
     amenities: string[]
 }
 
-export default function ListingDetails({ listing }: { listing: SpaceDetails }) {
+export default function ListingDetails() {
+
+    const listing : SpaceDetails = {
+        id: 1, 
+        name: "",
+        location: "",
+        rating: 0,
+        image: "",
+        description: "",
+        capacity: 0,
+        pricePerHour: 0,
+        amenities: []
+    }
+    const router = useRouter();
+    const { id } = router.query;
+
+    const [listingg, setListing] = useState<Listing>()
+
+    useEffect(() => {
+        if(id){
+            getListings().then((listings) => {
+                setListing(listings[0])
+            })
+        }
+    }, [id])
+
+    useEffect(() => {
+        console.log(id, listingg)
+    }, [id, listingg])
+
     return (
         <div className={styles.container}>
-            {PageHeader()}
+            <PageHeader />
 
             <main className={styles.main}>
                 <div className={styles.imageContainer}>
@@ -52,7 +86,7 @@ export default function ListingDetails({ listing }: { listing: SpaceDetails }) {
                 </div>
             </main>
 
-            {Footer()}
+            <Footer />
         </div>
     )
 }
