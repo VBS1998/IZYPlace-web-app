@@ -6,6 +6,7 @@ import { Listing } from "@/app/api/models/listing"
 import PageHeader from "@/app/components/header/header"
 import HeroBanner from "@/app/components/heroBanner/heroBanner"
 import Grid from '@/app/components/grid/grid'
+import Footer from '@/app/components/footer/footer'
 
 export default function HomePage() {
   const [eventSpaces, setEventSpaces] = useState<Listing[]>([])
@@ -25,11 +26,7 @@ export default function HomePage() {
         {Grid({listingsData: eventSpaces})}
       </main>
 
-      <footer className={styles.footer}>
-        <div className={styles.footerContent}>
-          &copy; {new Date().getFullYear()} IZYPlace. All rights reserved.
-        </div>
-      </footer>
+      {Footer()}
     </div>
   )
 }
