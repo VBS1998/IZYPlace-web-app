@@ -3,9 +3,11 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/VBS1998/base-web-app/src/db"
 	"github.com/VBS1998/base-web-app/src/services"
+	"github.com/gorilla/handlers"
 )
 
 var (
@@ -22,7 +24,16 @@ func main() {
 
 	services.SetupListingService(mongoClient)
 
-	log.Printf("serving at port %s", port)
-	log.Fatal(http.ListenAndServe(":"+port, server.Router).Error())
+	if os.Getenv("ENV") == "dev" {
+		corsObj := handlers.AllowedOrigins([]string{"*"})
+		corsHeaders := handlers.AllowedHeaders([]string{"Content-Type", "X-Requested-With"})
+		corsMethods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS"})
+
+		log.Printf("serving at port %s", port)
+		log.Fatal(http.ListenAndServe(":"+port, handlers.CORS(corsObj, corsHeaders, corsMethods)(server.Router)).Error())
+	} else {
+		log.Printf("serving at port %s", port)
+		log.Fatal(http.ListenAndServe(":"+port, server.Router).Error())
+	}
 
 }

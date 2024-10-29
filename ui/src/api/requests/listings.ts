@@ -1,4 +1,4 @@
-import { axiosClient } from "@/app/api/axios";
+import { axiosClient } from "@/api/axios";
 import { handleResponse } from "../handlers";
 import { Listing } from "../models/listing";
 

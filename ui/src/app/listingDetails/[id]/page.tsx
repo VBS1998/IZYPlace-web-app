@@ -2,12 +2,11 @@
 import { MapPin, Star, Users, DollarSign } from "lucide-react"
 import Image from "next/image"
 import styles from './ListingDetails.module.css'
-import PageHeader from "@/app/components/header/header"
-import Footer from "@/app/components/footer/footer"
+import PageHeader from "@/components/header/header"
+import Footer from "@/components/footer/footer"
 import { useEffect, useState } from "react"
-import { getListings } from "@/app/api/requests/listings"
-import { Listing } from "@/app/api/models/listing"
-import { useRouter } from "next/router"
+import { getListings } from "@/api/requests/listings"
+import { Listing } from "@/api/models/listing"
 
 interface SpaceDetails {
     id: number
@@ -21,7 +20,7 @@ interface SpaceDetails {
     amenities: string[]
 }
 
-export default function ListingDetails() {
+export default function ListingDetails({ params }: {params: Promise<{ id: string}>}) {
 
     const listing : SpaceDetails = {
         id: 1, 
@@ -34,18 +33,19 @@ export default function ListingDetails() {
         pricePerHour: 0,
         amenities: []
     }
-    const router = useRouter();
-    const { id } = router.query;
 
     const [listingg, setListing] = useState<Listing>()
+    const [id, setId] = useState<string>()
 
     useEffect(() => {
-        if(id){
-            getListings().then((listings) => {
-                setListing(listings[0])
-            })
-        }
-    }, [id])
+        params.then((p : {id : string}) => setId(p.id))
+    })
+
+    useEffect(() => {
+        getListings().then((listings) => {
+            setListing(listings[0])
+        })
+    }, [])
 
     useEffect(() => {
         console.log(id, listingg)
