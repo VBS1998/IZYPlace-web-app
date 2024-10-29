@@ -23,12 +23,14 @@ func GetListings(w http.ResponseWriter, r *http.Request) {
 func GetListing(w http.ResponseWriter, r *http.Request) {
 	id := mux.Vars(r)["id"]
 
-	for _, listing := range models.ListingsMock() {
-		if listing.ID == id {
-			encondeAndSend(w, listing)
-			break
-		}
+	listing, err := services.GetListingService().GetListing(id)
+
+	if err != nil {
+		http.Error(w, "Error Getting Listing", http.StatusInternalServerError)
+		return
 	}
+
+	encondeAndSend(w, listing)
 
 }
 

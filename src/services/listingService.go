@@ -51,6 +51,10 @@ func (service *ListingService) GetAllListings() ([]*models.Listing, error) {
 	return service.repository.GetAll()
 }
 
+func (service *ListingService) GetListing(id string) (*models.Listing, error) {
+	return service.repository.Get(id)
+}
+
 func (service *ListingService) AddListing(listing *models.Listing, pwd string) (string, error) {
 	expectedPwd := os.Getenv("IZYPLACE_ADD_PWD")
 
