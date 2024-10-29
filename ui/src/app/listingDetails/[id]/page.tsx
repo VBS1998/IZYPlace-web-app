@@ -10,18 +10,23 @@ import { Listing } from "@/api/models/listing"
 
 export default function ListingDetails({ params }: {params: Promise<{ id: string}>}) {
 
-    const [listing, setListing] = useState<Listing>({} as Listing)
+    const [listing, setListing] = useState<Listing>()
     const [id, setId] = useState<string>("")
+
+    const onBookNow = () => {
+        window.location.href = 'https://wa.me/+5511900000000';
+    }
 
     useEffect(() => {
         params.then((p : {id : string}) => setId(p.id))
     })
 
     useEffect(() => {
-        getListing(id).then((listing) => {
-            setListing(listing)
-            console.log("aaaa", id, listing)
-        })
+        if(id){
+            getListing(id).then((listing) => {
+                setListing(listing)
+            })
+        }
     }, [id])
 
     if(!listing) {
@@ -54,7 +59,7 @@ export default function ListingDetails({ params }: {params: Promise<{ id: string
                         </div>
                     </div>
                     
-                    <button className={styles.bookButton}>Book Now</button>
+                    <button onClick={onBookNow} className={styles.bookButton}>Book Now</button>
                 </div>
             </main>
 
