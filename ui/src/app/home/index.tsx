@@ -10,6 +10,8 @@ import Footer from '@/components/footer/footer'
 
 export default function HomePage() {
   const [eventSpaces, setEventSpaces] = useState<Listing[]>([])
+  
+  console.log(process.env.API_URL)
 
   useEffect(() => {
     getListings().then((listings) => {
