@@ -30,14 +30,6 @@ func (r *IZYServer) setupAnonymousRoutes(router *mux.Router) {
 
 }
 
-func (c *IZYServer) setupStaticFiles(router *mux.Router) {
-	router.PathPrefix("/").Handler(
-		http.StripPrefix("/",
-			http.FileServer(http.Dir("../ui/out")),
-		),
-	)
-}
-
 func CreateServer() *IZYServer {
 
 	r := IZYServer{
@@ -45,7 +37,6 @@ func CreateServer() *IZYServer {
 	}
 
 	r.setupAnonymousRoutes(r.Router)
-	r.setupStaticFiles(r.Router)
 
 	return &r
 }

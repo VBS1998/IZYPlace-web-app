@@ -63,8 +63,32 @@ func (repo *ListingMongoRepository) GetAll() ([]*models.Listing, error) {
 	return results, nil
 }
 
-func (repo *ListingMongoRepository) Get(collection string, id string) {
-	log.Fatal("Method not implemented!")
+func (repo *ListingMongoRepository) Get(id string) (*models.Listing, error) {
+	// Create a context with a timeout
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	// Get the collection from the client
+	collection := repo.Database.Collection(LISTINGS_MONGO_COLLECTION_NAME)
+
+	id_obj, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return nil, err
+	}
+
+	filter := bson.D{{Key: "_id", Value: id_obj}}
+
+	// Variable to hold the result
+	var result *models.Listing
+
+	// Find the document
+	err = collection.FindOne(ctx, filter).Decode(&result)
+	if err != nil {
+		return nil, err
+	}
+
+	return result, nil
+
 }
 
 func (repo *ListingMongoRepository) Add(listing *models.Listing) (string, error) {

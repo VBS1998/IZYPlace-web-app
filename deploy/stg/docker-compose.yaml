@@ -1,0 +1,29 @@
+services:
+  izyplace:
+    image: izyplace:latest
+    environment:
+      - MONGO_DB_USERNAME={MONGO_DB_USERNAME}
+      - MONGO_DB_PASSWORD={MONGO_DB_PASSWORD}
+      - ENV={ENV}
+      - MONGO_DB_HOSTNAME=mongo
+      - MONGO_DB_PORT=27017
+    networks:
+      - docker_network
+  izyplace-ui:
+    image: izyplace-ui:latest
+    environment:
+      - API_URL=http://izyplace:8000
+    networks:
+      - docker_network
+    ports:
+      - "8000:3000"
+  mongo:
+    image: mongodb/mongodb-community-server:latest
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME={MONGO_DB_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD={MONGO_DB_PASSWORD}
+    networks:
+      - docker_network
+networks:
+  docker_network:
+    driver: bridge

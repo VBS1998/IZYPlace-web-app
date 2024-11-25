@@ -1,4 +1,4 @@
-import { Listing } from '@/app/api/models/listing'
+import { Listing } from '@/api/models/listing'
 import styles from './Grid.module.css'
 import { FC } from 'react'
 import ListingCell from './cells/listingCell'

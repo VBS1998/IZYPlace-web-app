@@ -10,5 +10,6 @@ const (
 
 type ListingRepositoryInterface interface {
 	GetAll() ([]*models.Listing, error)
+	Get(id string) (*models.Listing, error)
 	Add(listing *models.Listing) (string, error)
 }

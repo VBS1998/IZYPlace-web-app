@@ -1,18 +1,20 @@
-all: build run
-
-build-ui:
-	cd ui && make build
+all: build-api run-api
 
 build-api:
 	cd src && go build -o izy_api . 
 
-build: build-ui build-api
-
-run:
+run-api:
 	cd src && ./izy_api
 
-run-api: build-api run
+build-ui:
+	cd ui && make build
 
+run-ui:
+	cd ui && make run
+
+dev-ui:
+	cd ui && make dev
+	
 clear:
 	rm ./izy_api && cd ui && make clear
 
@@ -20,12 +22,13 @@ docker/all: docker/build docker/run
 
 docker/build:
 	docker build -t izyplace .
+	docker build -t izyplace-ui ./ui
 
 docker/run:
-	docker compose up
+	cd deploy/stg && docker compose up
 
 docker/run_dettached:
-	docker compose up -d
+	cd deploy/stg && docker compose up -d
 
 docker/run_db:
-	docker compose up mongo -d
+	cd deploy/dev && docker compose up mongo -d
