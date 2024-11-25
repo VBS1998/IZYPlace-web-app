@@ -7,6 +7,7 @@ import PageHeader from "@/components/header/header"
 import HeroBanner from "@/components/heroBanner/heroBanner"
 import Grid from '@/components/grid/grid'
 import Footer from '@/components/footer/footer'
+import SearchBox from '@/components/searchBox/searchBox'
 
 export default function HomePage() {
   const [eventSpaces, setEventSpaces] = useState<Listing[]>([])
@@ -24,6 +25,9 @@ export default function HomePage() {
       <PageHeader />
 
       <main>
+        <div className={styles.searchBoxWrapper}>
+          <SearchBox title='Procurou, achou. Fácil assim, como um estalo de dedos!' placeholder='Digite aqui o espaço que deseja' onSearch={(query) => {}}/>
+        </div>
         <HeroBanner />
         <Grid listingsData={eventSpaces} />
       </main>
