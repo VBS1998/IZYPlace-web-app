@@ -14,12 +14,13 @@ export default function PageHeader() {
                 </Link>
                 <nav>
                     <ul className={styles.navList}>
-                        <li><Link href="/" className={styles.navLink}>Home</Link></li>
-                        <li><Link href="#" className={styles.navLink}>About</Link></li>
-                        <li><Link href="#" className={styles.navLink}>Contact</Link></li>
+                        <li><Link href="/" className={styles.navLink}>Como Funciona</Link></li>
+                        <li><Link href="#" className={styles.navLink}>Tenho um espaço</Link></li>
+                        <li><Link href="#" className={styles.navLink}>Quero um espaço</Link></li>
+                        <li><Link href="#" className={styles.navLink}>Ajuda?</Link></li>
                     </ul>
                 </nav>
-            </div>
+                </div>
         </header>
     )
 }

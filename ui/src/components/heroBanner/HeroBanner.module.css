@@ -1,6 +1,14 @@
 .hero {
-    background-color: #f9fafb;
-    padding: 3rem 1rem;
+    background-color: pink;
+    background-size: cover;
+    background-position: center;
+    height: 80vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
 }
 
 @media (min-width: 768px) {
