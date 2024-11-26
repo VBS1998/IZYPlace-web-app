@@ -1,5 +1,5 @@
 .searchBox {
-    background-color: #327aa6a6;
+    background-color: #327aa6ea;
     padding: 1.5rem; 
     width: 40%;
     max-width: 1200px;
@@ -8,7 +8,7 @@
   }
   
   .title {
-    font-size: 1.5rem;
+    font-size: 3rem;
     font-weight: 600;
     margin-right: 10rem;
     margin-bottom: 1rem;
@@ -28,6 +28,7 @@
     border-right: none;
     border-radius: 4px 0 0 4px;
     outline: none;
+    color:black;
   }
   
   .searchInput:focus {
