@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/VBS1998/base-web-app/src/controllers"
@@ -30,6 +31,14 @@ func (r *IZYServer) setupAnonymousRoutes(router *mux.Router) {
 
 }
 
+func (r *IZYServer) setupImages(router *mux.Router) {
+
+	fileServer := http.FileServer(http.Dir("../images"))
+
+	router.PathPrefix("/images/").Handler(http.StripPrefix("/images/", fileServer))
+	log.Print("Handle imagess")
+}
+
 func CreateServer() *IZYServer {
 
 	r := IZYServer{
@@ -37,6 +46,7 @@ func CreateServer() *IZYServer {
 	}
 
 	r.setupAnonymousRoutes(r.Router)
+	r.setupImages(r.Router)
 
 	return &r
 }
