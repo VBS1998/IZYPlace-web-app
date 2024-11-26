@@ -1,9 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['localhost', 'izyplace']
+        remotePatterns: [
+            { hostname: 'localhost' }, 
+            { hostname: 'izyplace' }
+        ]
     }
-    
 };
 
 export default nextConfig;
