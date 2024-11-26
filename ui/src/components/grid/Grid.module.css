@@ -1,15 +1,21 @@
 .catalogSection {
     padding: 3rem 1rem;
+    margin-top: 2rem;
 }
 
 .catalogContent {
     max-width: 1200px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .catalogTitle {
     font-size: 1.875rem;
     font-weight: bold;
+    color: #0C314C;
     margin-bottom: 2rem;
 }
 

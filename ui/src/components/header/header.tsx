@@ -17,7 +17,7 @@ export default function PageHeader() {
                         <li><Link href="/" className={styles.navLink}>Como Funciona</Link></li>
                         <li><Link href="#" className={styles.navLink}>Tenho um espaço</Link></li>
                         <li><Link href="#" className={styles.navLink}>Quero um espaço</Link></li>
-                        <li><Link href="#" className={styles.navLink}>Ajuda?</Link></li>
+                        <li><Link href='https://wa.me/+5511900000000' className={styles.navLink}>Ajuda?</Link></li>
                     </ul>
                 </nav>
                 </div>

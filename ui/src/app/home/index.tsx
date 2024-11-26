@@ -24,11 +24,11 @@ export default function HomePage() {
     <div className={styles.container}>
       <PageHeader />
 
-      <main>
+      <main className={styles.main}>
+        <HeroBanner />
         <div className={styles.searchBoxWrapper}>
           <SearchBox title='Procurou, achou. Fácil assim, como um estalo de dedos!' placeholder='Digite aqui o espaço que deseja' onSearch={(query) => {}}/>
         </div>
-        <HeroBanner />
         <Grid listingsData={eventSpaces} />
       </main>
 
