@@ -7,6 +7,8 @@ services:
       - ENV=${ENV}
       - MONGO_DB_HOSTNAME=mongo
       - MONGO_DB_PORT=27017
+    volumes:
+      - ../../images:/app/images
     networks:
       - docker_network
     ports:
