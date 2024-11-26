@@ -1,6 +1,11 @@
-import { axiosClient } from "@/api/axios";
+import { axiosClient, imagesUrl } from "@/api/axios";
 import { handleResponse } from "../handlers";
 import { Listing } from "../models/listing";
+
+const renameImageUrl = (listing : Listing) => {
+    listing.imageUrl = imagesUrl + listing.imageUrl
+    return listing
+}
 
 export const getListings = async () => {
     const query = '/listings';
@@ -8,7 +13,7 @@ export const getListings = async () => {
     return await axiosClient
         .get(query)
         .then(handleResponse<Listing[]>)
-        
+        .then(listings => listings.map(renameImageUrl))
 }
 
 export const getListing = async (id : string) => {
@@ -17,5 +22,5 @@ export const getListing = async (id : string) => {
     return await axiosClient
         .get(query)
         .then(handleResponse<Listing>)
-        
+        .then(renameImageUrl)
 }
