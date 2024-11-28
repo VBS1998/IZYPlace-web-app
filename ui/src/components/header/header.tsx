@@ -1,4 +1,4 @@
-import { MapPin } from "lucide-react"
+import Image from 'next/image'
 import styles from './PageHeader.module.css'
 import Link from "next/link"
 
@@ -9,8 +9,7 @@ export default function PageHeader() {
         <header className={styles.header}>
             <div className={styles.headerContent}>
                 <Link href="/" className={styles.logo}>
-                    <MapPin className={styles.logoIcon} />
-                    <span className={styles.logoText}>IZYPlace</span>
+                    <Image src={"/static/logo-white.png"} layout="fill" objectFit="cover" alt='logo' />
                 </Link>
                 <nav>
                     <ul className={styles.navList}>
