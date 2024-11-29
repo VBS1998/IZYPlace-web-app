@@ -11,14 +11,17 @@ import Carousel from '@/components/carousel/carousel'
 
 export default function HomePage() {
   const [eventSpaces, setEventSpaces] = useState<Listing[]>([])
-  
-  console.log(process.env.API_URL)
 
   useEffect(() => {
     getListings().then((listings) => {
       setEventSpaces(listings)
     })
   }, [])
+
+  const onSearch = ( query : string) => {
+    const searchString = query ? "?query=" + query : ""
+    window.location.href = "/search" + searchString
+  }
 
   return (
     <div className={styles.container}>
@@ -27,7 +30,7 @@ export default function HomePage() {
       <main className={styles.main}>
         <HeroBanner />
         <div className={styles.searchBoxWrapper}>
-          <SearchBox title='Procurou, achou. Fácil assim, como um estalo de dedos!' placeholder='Digite aqui o espaço que deseja' onSearch={(query) => {}}/>
+          <SearchBox title='Procurou, achou. Fácil assim, como um estalo de dedos!' placeholder='Digite aqui o espaço que deseja' onSearch={onSearch}/>
         </div>
         <Carousel listingsData={eventSpaces.slice(0, 5)} />
       </main>
