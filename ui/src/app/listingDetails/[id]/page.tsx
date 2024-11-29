@@ -7,6 +7,7 @@ import Footer from "@/components/footer/footer"
 import { useEffect, useState } from "react"
 import { getListing } from "@/api/requests/listings"
 import { Listing } from "@/api/models/listing"
+import Carousel from "@/components/carousel/carousel"
 
 export default function ListingDetails({ params }: {params: Promise<{ id: string}>}) {
 
@@ -39,7 +40,7 @@ export default function ListingDetails({ params }: {params: Promise<{ id: string
 
             <main className={styles.main}>
                 <div className={styles.imageContainer}>
-                    <Image src={listing.imageUrl} alt={listing.name} layout="fill" objectFit="cover" className={styles.image} />
+                    <Carousel singleCell imagesData={[listing.imageUrl]} />
                 </div>
                 <div className={styles.content}>
                     <h1 className={styles.title}>{listing.name}</h1>

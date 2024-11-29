@@ -32,7 +32,7 @@ export default function HomePage() {
         <div className={styles.searchBoxWrapper}>
           <SearchBox title='Procurou, achou. Fácil assim, como um estalo de dedos!' placeholder='Digite aqui o espaço que deseja' onSearch={onSearch}/>
         </div>
-        <Carousel listingsData={eventSpaces.slice(0, 5)} />
+        <Carousel title='Veja nossos espaços mais requisitados'  listingsData={eventSpaces.slice(0, 5)} />
       </main>
 
       <Footer />

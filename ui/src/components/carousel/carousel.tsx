@@ -7,14 +7,20 @@ import {CircleArrowLeft, CircleArrowRight} from 'lucide-react'
 import Image from 'next/image'
 
 interface CarouselProps {
+    title? : string
     listingsData? : Listing[]
+    imagesData? : string[]
+    singleCell? : boolean
 }
 
-const Carousel : FC<CarouselProps> = ( props ) => {
+const Carousel : FC<CarouselProps> = ({title, listingsData, imagesData, singleCell = false  }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
     align: 'start',
   })
+
+  const slideStyle = singleCell ? styles.embla__slide__single : styles.embla__slide__row
+  const navButtonDisabled = singleCell && ((listingsData?.length ?? 0) + (imagesData?.length ?? 0) == 1)
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev()
@@ -27,21 +33,26 @@ const Carousel : FC<CarouselProps> = ( props ) => {
   return (
     <section className={styles.carouselSection}>
         <div className={styles.carouselContent}>
-            <h2 className={styles.carouselTitle}>Veja nossos espaços mais requisitados!</h2>
+            <h2 className={styles.carouselTitle}>{title}</h2>
             <div className={styles.carousel}>
-                <button className="embla__prev" onClick={scrollPrev}>
+                <button className={styles.embla__button} onClick={scrollPrev} disabled={navButtonDisabled}>
                     <CircleArrowLeft className={styles.navButton}/>
                 </button>
                 <div className={styles.embla} ref={emblaRef}>
                     <div className={styles.embla__container}>
-                        {props.listingsData?.map((listing: Listing) => (
-                            <div key={listing.id} className={styles.embla__slide}>
+                        {listingsData?.map((listing: Listing) => (
+                            <div key={listing.id} className={slideStyle}>
                                 {ListingCell({listingData: listing})}
+                            </div>
+                        )) ?? <></>}
+                        {imagesData?.map((url: string) => (
+                            <div key={url} className={slideStyle}>
+                                <Image src={url} alt={url} layout="fill" objectFit="cover" className={styles.spaceImage} />
                             </div>
                         )) ?? <></>}
                     </div>
                 </div>
-                <button className="embla__next" onClick={scrollNext}>
+                <button className={styles.embla__button} onClick={scrollNext} disabled={navButtonDisabled}>
                     <CircleArrowRight className={styles.navButton}/>
                 </button>
             </div>
