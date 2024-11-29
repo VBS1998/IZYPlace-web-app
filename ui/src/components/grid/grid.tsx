@@ -1,7 +1,7 @@
 import { Listing } from '@/api/models/listing'
 import styles from './Grid.module.css'
 import { FC } from 'react'
-import ListingCell from './cells/listingCell'
+import ListingCell from '../listingCell/listingCell'
 
 interface GridProps {
     listingsData? : Listing[]

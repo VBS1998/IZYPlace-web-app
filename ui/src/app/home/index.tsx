@@ -5,9 +5,9 @@ import { getListings } from "@/api/requests/listings"
 import { Listing } from "@/api/models/listing"
 import PageHeader from "@/components/header/header"
 import HeroBanner from "@/components/heroBanner/heroBanner"
-import Grid from '@/components/grid/grid'
 import Footer from '@/components/footer/footer'
 import SearchBox from '@/components/searchBox/searchBox'
+import Carousel from '@/components/carousel/carousel'
 
 export default function HomePage() {
   const [eventSpaces, setEventSpaces] = useState<Listing[]>([])
@@ -29,7 +29,7 @@ export default function HomePage() {
         <div className={styles.searchBoxWrapper}>
           <SearchBox title='Procurou, achou. Fácil assim, como um estalo de dedos!' placeholder='Digite aqui o espaço que deseja' onSearch={(query) => {}}/>
         </div>
-        <Grid listingsData={eventSpaces} />
+        <Carousel listingsData={eventSpaces.slice(0, 5)} />
       </main>
 
       <Footer />

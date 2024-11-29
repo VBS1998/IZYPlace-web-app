@@ -1,0 +1,49 @@
+.carouselSection {
+    padding: 3rem 1rem;
+    margin-top: 2rem;
+}
+
+.carouselContent {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.carouselTitle {
+    font-size: 1.875rem;
+    font-weight: bold;
+    color: #0C314C;
+    margin-bottom: 2rem;
+}
+
+.carousel {
+    display: flex;
+    gap: 1rem;
+}
+
+.embla {
+    overflow: hidden;
+    position: relative;
+    padding: 20px;
+    max-width: 100vh;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+.embla__container {
+    display: flex;
+}
+.embla__slide {
+    flex: 0 0 30%;
+    min-width: 0;
+    margin: 8px;
+}
+
+.navButton {
+    color: #3279A6;
+    width: auto;
+    height: 2.5rem;
+}
