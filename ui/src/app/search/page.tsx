@@ -9,6 +9,16 @@ import { Listing } from '@/api/models/listing';
 
 export default function SearchResultsPage() {
     const [eventSpaces, setEventSpaces] = useState<Listing[]>([])
+    const [queryParams, setQueryParams] = useState<{ [key: string]: string }>({})
+
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search)
+        const paramsObject: { [key: string]: string } = {}
+        params.forEach((value, key) => {
+        paramsObject[key] = value
+        })
+        setQueryParams(paramsObject)
+    }, [])
 
     useEffect(() => {
         getListings().then((listings) => {
@@ -20,7 +30,7 @@ export default function SearchResultsPage() {
         <div className={styles.container}>
             <PageHeader />
 
-            <Grid title="Resultados da busca" listingsData={eventSpaces} />
+            <Grid title={"Resultados da busca" + (queryParams['query'] ? (": " + queryParams['query']) : "")} listingsData={eventSpaces} />
         </div>
     )
 }
