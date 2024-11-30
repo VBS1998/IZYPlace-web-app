@@ -1,28 +1,28 @@
 .header {
-    background-color: white;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 16px;
+    z-index: 10;
+    margin: 32px;
 }
 
 .headerContent {
+    background-color: #3279a6;
     max-width: 1200px;
     margin: 0 auto;
     padding: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: black;
+    color: #f4f4f4;
 }
 
 .logo {
     display: flex;
     align-items: center;
+    position: relative;
     gap: 0.5rem;
-}
-
-.logoIcon {
     height: 1.5rem;
-    width: 1.5rem;
-    color: var(--primary);
+    width: 8rem;
 }
 
 .logoText {
@@ -32,14 +32,17 @@
 
 .navList {
     display: flex;
-    gap: 1rem;
+    justify-content: space-between;
+    flex-grow: 1;
+    margin-left: 2rem;
 }
 
 .navLink {
-    font-size: 0.875rem;
+    font-size: 1rem;
     font-weight: 500;
+    padding: 1.2rem 1rem;
 }
 
 .navLink:hover {
-    color: var(--primary);
+    background-color: #0C314C;
 }

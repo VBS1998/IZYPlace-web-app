@@ -15,8 +15,6 @@
 
 .imageContainer {
     position: relative;
-    width: 100%;
-    height: 400px;
     margin-bottom: 2rem;
 }
 
@@ -33,7 +31,7 @@
 .title {
     font-size: 2.5rem;
     font-weight: bold;
-    color: #000000;
+    color: #0C314C;
 }
 
 .locationRating {
@@ -41,7 +39,7 @@
     justify-content: space-between;
     align-items: center;
     font-size: 1rem;
-    color: #000000;
+    color: #0C314C;
 }
 
 .location,
@@ -53,7 +51,7 @@
 
 .description {
     font-size: 1rem;
-    color: #000000;
+    color: #0C314C;
     line-height: 1.5;
 }
 
@@ -67,13 +65,13 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: #000000;
+    color: #0C314C;
 }
 
 .bookButton {
     margin-top: 2rem;
     padding: 0.75rem 1.5rem;
-    background-color: black;
+    background-color: #3279a6;
     color: white;
     border: none;
     border-radius: 0.25rem;

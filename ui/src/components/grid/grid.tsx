@@ -1,9 +1,10 @@
 import { Listing } from '@/api/models/listing'
 import styles from './Grid.module.css'
 import { FC } from 'react'
-import ListingCell from './cells/listingCell'
+import ListingCell from '../listingCell/listingCell'
 
 interface GridProps {
+    title? : string
     listingsData? : Listing[]
 }
 
@@ -14,7 +15,7 @@ const Grid : FC<GridProps> = (props) => {
     return (
         <section className={styles.catalogSection}>
             <div className={styles.catalogContent}>
-                <h2 className={styles.catalogTitle}>Featured Event Spaces</h2>
+                <h2 className={styles.catalogTitle}>{props.title ?? ""}</h2>
                 <div className={styles.catalogGrid}>
                     {listingsData.map((listing: Listing) => (
                         ListingCell({listingData: listing})

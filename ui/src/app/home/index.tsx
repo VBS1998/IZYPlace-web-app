@@ -5,13 +5,12 @@ import { getListings } from "@/api/requests/listings"
 import { Listing } from "@/api/models/listing"
 import PageHeader from "@/components/header/header"
 import HeroBanner from "@/components/heroBanner/heroBanner"
-import Grid from '@/components/grid/grid'
 import Footer from '@/components/footer/footer'
+import SearchBox from '@/components/searchBox/searchBox'
+import Carousel from '@/components/carousel/carousel'
 
 export default function HomePage() {
   const [eventSpaces, setEventSpaces] = useState<Listing[]>([])
-  
-  console.log(process.env.API_URL)
 
   useEffect(() => {
     getListings().then((listings) => {
@@ -19,13 +18,21 @@ export default function HomePage() {
     })
   }, [])
 
+  const onSearch = ( query : string) => {
+    const searchString = query ? "?query=" + query : ""
+    window.location.href = "/search" + searchString
+  }
+
   return (
     <div className={styles.container}>
       <PageHeader />
 
-      <main>
+      <main className={styles.main}>
         <HeroBanner />
-        <Grid listingsData={eventSpaces} />
+        <div className={styles.searchBoxWrapper}>
+          <SearchBox title='Procurou, achou. Fácil assim, como um estalo de dedos!' placeholder='Digite aqui o espaço que deseja' onSearch={onSearch}/>
+        </div>
+        <Carousel title='Veja nossos espaços mais requisitados'  listingsData={eventSpaces.slice(0, 5)} />
       </main>
 
       <Footer />

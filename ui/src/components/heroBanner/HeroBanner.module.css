@@ -1,6 +1,12 @@
 .hero {
-    background-color: #f9fafb;
-    padding: 3rem 1rem;
+    background-image: url('/static/izy_eco.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 80vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @media (min-width: 768px) {
