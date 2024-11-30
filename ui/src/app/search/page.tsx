@@ -6,6 +6,7 @@ import Grid from '@/components/grid/grid';
 import { useEffect, useState } from 'react';
 import { getListings } from '@/api/requests/listings';
 import { Listing } from '@/api/models/listing';
+import Footer from '@/components/footer/footer';
 
 export default function SearchResultsPage() {
     const [eventSpaces, setEventSpaces] = useState<Listing[]>([])
@@ -31,6 +32,8 @@ export default function SearchResultsPage() {
             <PageHeader />
 
             <Grid title={"Resultados da busca" + (queryParams['query'] ? (": " + queryParams['query']) : "")} listingsData={eventSpaces} />
+
+            <Footer />
         </div>
     )
 }
