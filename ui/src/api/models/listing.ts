@@ -5,7 +5,7 @@ export interface Listing {
     capacity: number;
     pricePerHour: number;
     location: string;
-    imageUrl: string;
+    imageUrl: string[];
     rating: number;
   }
   

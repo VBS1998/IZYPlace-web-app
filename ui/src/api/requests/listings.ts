@@ -3,7 +3,7 @@ import { handleResponse } from "../handlers";
 import { Listing } from "../models/listing";
 
 const renameImageUrl = (listing : Listing) => {
-    listing.imageUrl = imagesUrl + listing.imageUrl
+    listing.imageUrl = listing.imageUrl.map((url) => imagesUrl + url)
     return listing
 }
 

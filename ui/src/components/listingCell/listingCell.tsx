@@ -13,7 +13,7 @@ const ListingCell: FC<ListingCellProps> = ({ listingData }: { listingData: Listi
 
     return (
         <Link key={listingData.id} href={`/listingDetails/${listingData.id}`} className={styles.spaceCard}>
-            <Image src={listingData.imageUrl} alt={listingData.name} width={300} height={200} className={styles.spaceImage} />
+            <Image src={listingData.imageUrl[0]} alt={listingData.name} width={300} height={200} className={styles.spaceImage} />
             <div className={styles.spaceContent}>
                 <h3 className={styles.spaceName}>{listingData.name}</h3>
                 <p className={styles.spaceLocation}>{listingData.location}</p>

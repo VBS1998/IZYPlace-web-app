@@ -40,7 +40,7 @@ export default function ListingDetails({ params }: {params: Promise<{ id: string
 
             <main className={styles.main}>
                 <div className={styles.imageContainer}>
-                    <Carousel singleCell imagesData={[listing.imageUrl]} />
+                    <Carousel singleCell imagesData={listing.imageUrl} />
                 </div>
                 <div className={styles.content}>
                     <h1 className={styles.title}>{listing.name}</h1>
