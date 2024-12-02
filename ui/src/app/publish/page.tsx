@@ -14,8 +14,17 @@ const PublishPage = () => {
         pricePerHour: '',
         description: '',
     })
+
+    const [userData, setUserData] = useState({
+        name: '',
+        id: '',
+        phone: '',
+    })
+
     const [photos, setPhotos] = useState<File[]>([])
 
+    const redStar = (<label style={{color: "red"}}>*</ label>)
+    
     const onDrop = (acceptedFiles: File[]) => {
         setPhotos(prevPhotos => [...prevPhotos, ...acceptedFiles])
     }
@@ -27,9 +36,14 @@ const PublishPage = () => {
         }
     })
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleSpaceInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target
         setSpaceData(prevData => ({ ...prevData, [name]: value }))
+    }
+    
+    const handleUserInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target
+        setUserData(prevData => ({ ...prevData, [name]: value }))
     }
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -50,70 +64,105 @@ const PublishPage = () => {
             <h1 className={styles.title}>Criar anúncio</h1>
             <form onSubmit={handleSubmit} className={styles.form}>
                 <div className={styles.formGroup}>
-                <label htmlFor="name">Space Name</label>
-                <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={spaceData.name}
-                    onChange={handleInputChange}
-                    required
-                />
+                    <label htmlFor="OwnerName">Nome do Proprietário {redStar}</label>
+                    <input
+                        type="text"
+                        id="OwnerName"
+                        name="name"
+                        value={userData.name}
+                        onChange={handleUserInputChange}
+                        required
+                    />
                 </div>
                 <div className={styles.formGroup}>
-                <label htmlFor="location">Location</label>
-                <input
-                    type="text"
-                    id="location"
-                    name="location"
-                    value={spaceData.location}
-                    onChange={handleInputChange}
-                    required
-                />
+                    <label htmlFor="OwnerId">CPF {redStar}</label>
+                    <input
+                        type="text"
+                        id="OwnerId"
+                        name="id"
+                        value={userData.id}
+                        onChange={handleUserInputChange}
+                        required
+                    />
                 </div>
                 <div className={styles.formGroup}>
-                <label htmlFor="capacity">Capacity</label>
-                <input
-                    type="number"
-                    id="capacity"
-                    name="capacity"
-                    value={spaceData.capacity}
-                    onChange={handleInputChange}
-                    required
-                />
+                    <label htmlFor="PhoneNumber">Telefone {redStar}</label>
+                    <input
+                        type="text"
+                        id="PhoneNumber"
+                        name="phone"
+                        value={userData.phone}
+                        onChange={handleUserInputChange}
+                        required
+                    />
                 </div>
                 <div className={styles.formGroup}>
-                <label htmlFor="pricePerHour">Price per Hour</label>
-                <input
-                    type="number"
-                    id="pricePerHour"
-                    name="pricePerHour"
-                    value={spaceData.pricePerHour}
-                    onChange={handleInputChange}
-                    required
-                />
+                    <label htmlFor="SpaceName">Nome do Anúncio {redStar}</label>
+                    <input
+                        type="text"
+                        id="spaceName"
+                        name="name"
+                        value={spaceData.name}
+                        onChange={handleSpaceInputChange}
+                        required
+                    />
                 </div>
                 <div className={styles.formGroup}>
-                <label htmlFor="description">Description</label>
-                <textarea
-                    id="description"
-                    name="description"
-                    value={spaceData.description}
-                    onChange={handleInputChange}
-                    required
-                />
+                    <label htmlFor="location">Localização {redStar}</label>
+                    <input
+                        type="text"
+                        id="location"
+                        name="location"
+                        value={spaceData.location}
+                        onChange={handleSpaceInputChange}
+                        required
+                    />
+                </div>
+                <div style={{ display: "flex", gap: "1rem"  }}>
+                    <div className={styles.formGroup} style={{flexGrow: "1"}}>
+                        <label htmlFor="capacity">Capacidade {redStar}</label>
+                        <input
+                            type="number"
+                            id="capacity"
+                            name="capacity"
+                            value={spaceData.capacity}
+                            onChange={handleSpaceInputChange}
+                            required
+                        />
+                    </div>
+                    <div className={styles.formGroup} style={{flexGrow: "1"}}>
+                        <label htmlFor="pricePerHour">Preço por Hora {redStar}</label>
+                        <input
+                            type="number"
+                            id="pricePerHour"
+                            name="pricePerHour"
+                            value={spaceData.pricePerHour}
+                            onChange={handleSpaceInputChange}
+                            required
+                        />
+                    </div>
                 </div>
                 <div className={styles.formGroup}>
-                <label>Photos</label>
-                <div {...getRootProps()} className={styles.dropzone}>
-                    <input {...getInputProps()} />
-                    {isDragActive ? (
-                    <p>Drop the files here ...</p>
-                    ) : (
-                    <p>Drag 'n' drop some files here, or click to select files</p>
-                    )}
-                    <Upload className={styles.uploadIcon} />
+                    <label htmlFor="description">Descrição {redStar}</label>
+                    <textarea
+                        id="description"
+                        name="description"
+                        value={spaceData.description}
+                        onChange={handleSpaceInputChange}
+                        required
+                    />
                 </div>
+                <div className={styles.formGroup}>
+                    <label>Photos {redStar}</label>
+                    <div {...getRootProps()} className={styles.dropzone}>
+                        <input {...getInputProps()} />
+                        {isDragActive ? (
+                        <p>Solte as imagens aqui.</p>
+                        ) : (
+                        <p>Clique e arraste as imagens para cá. Ou, se preferir, clique para escolher o arquivo.</p>
+                        )}
+                        <Upload className={styles.uploadIcon} />
+                    </div>
                 </div>
                 {photos.length > 0 && (
                 <div className={styles.photoPreview}>
@@ -127,7 +176,7 @@ const PublishPage = () => {
                     ))}
                 </div>
                 )}
-                <button type="submit" className={styles.submitButton}>Upload Space</button>
+                <button type="submit" className={styles.submitButton}>Adicionar Local</button>
             </form>
             </main>
         </div>

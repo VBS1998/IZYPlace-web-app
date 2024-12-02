@@ -43,6 +43,7 @@
     border: 1px solid #0C314C;
     border-radius: 4px;
     font-size: 1rem;
+    color: #0C314C;
   }
   
   .formGroup textarea {
