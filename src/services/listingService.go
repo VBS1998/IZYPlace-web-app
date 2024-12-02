@@ -19,11 +19,11 @@ type ListingService struct {
 	repository repositories.ListingRepositoryInterface
 }
 
-var service *ListingService
-var service_once sync.Once
+var listing_service *ListingService
+var listing_service_once sync.Once
 
 func SetupListingService(client db.DbClient) {
-	service_once.Do(func() {
+	listing_service_once.Do(func() {
 
 		var repository repositories.ListingRepositoryInterface
 
@@ -34,17 +34,17 @@ func SetupListingService(client db.DbClient) {
 			log.Fatal("Client type not supported")
 		}
 
-		service = &ListingService{
+		listing_service = &ListingService{
 			repository: repository,
 		}
 	})
 }
 
 func GetListingService() *ListingService {
-	if service == nil {
+	if listing_service == nil {
 		log.Print("ERROR: Listing Service not initialized. Call Setup first.")
 	}
-	return service
+	return listing_service
 }
 
 func (service *ListingService) GetAllListings() ([]*models.Listing, error) {
