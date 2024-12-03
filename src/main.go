@@ -23,6 +23,7 @@ func main() {
 	defer mongoClient.Disconnect()
 
 	services.SetupListingService(mongoClient)
+	services.SetupRequestService(mongoClient)
 
 	if os.Getenv("ENV") == "dev" {
 		corsObj := handlers.AllowedOrigins([]string{"*"})

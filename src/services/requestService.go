@@ -53,6 +53,6 @@ func (service *RequestService) GetRequest(id string) (*models.Request, error) {
 	return service.repository.Get(id)
 }
 
-func (service *RequestService) AddRequest(listing *models.Request, pwd string) (string, error) {
-	return service.repository.Add(listing)
+func (service *RequestService) AddRequest(request *models.Request) (string, error) {
+	return service.repository.Add(request)
 }
