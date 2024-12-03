@@ -51,12 +51,12 @@ const PublishPage = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        // Here you would typically send the data to your backend
+
         const listing = {
             ...listingData, 
             capacity: parseFloat(listingData.capacity),
             pricePerHour: parseFloat(listingData.pricePerHour),
-            imageUrl: []
+            imageUrl: [] //TODO: Handle images
         }
         const request : ListingRequest = {owner: userData, listing: listing}
         addRequest(request)
