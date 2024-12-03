@@ -1,6 +1,6 @@
 import { Listing } from "@/api/models/listing";
 import { FC } from "react";
-import { Star } from "lucide-react"
+import { Users } from "lucide-react"
 import Image from "next/image"
 import styles from './ListingCell.module.css'
 import Link from "next/link";
@@ -17,11 +17,11 @@ const ListingCell: FC<ListingCellProps> = ({ listingData }: { listingData: Listi
             <div className={styles.spaceContent}>
                 <h3 className={styles.spaceName}>{listingData.name}</h3>
                 <p className={styles.spaceLocation}>{listingData.location}</p>
-                <div className={styles.spaceRating}>
-                    <Star className={styles.ratingIcon} />
+                <div className={styles.spaceCapacity}>
+                    <Users className={styles.capacityIcon} />
                     <span>
-                        <h4 className={styles.ratingText}>
-                            {listingData.rating.toFixed(1)}
+                        <h4 className={styles.capacityText}>
+                            {listingData.capacity}
                         </h4>
                     </span>
                 </div>

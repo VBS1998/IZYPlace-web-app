@@ -6,6 +6,5 @@ export interface Listing {
     pricePerHour: number;
     location: string;
     imageUrl: string[];
-    rating: number;
   }
   

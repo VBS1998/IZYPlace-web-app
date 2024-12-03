@@ -34,7 +34,7 @@
     color: #0C314C;
 }
 
-.locationRating {
+.locationCapacity {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -43,7 +43,7 @@
 }
 
 .location,
-.rating {
+.capacity {
     display: flex;
     align-items: center;
     gap: 0.5rem;
