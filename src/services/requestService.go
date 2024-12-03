@@ -2,6 +2,8 @@ package services
 
 import (
 	"log"
+	"net/url"
+	"strconv"
 	"sync"
 
 	"github.com/VBS1998/base-web-app/src/db"
@@ -41,11 +43,13 @@ func GetRequestService() *RequestService {
 	return request_service
 }
 
-func (service *RequestService) GetAllRequests() ([]*models.Request, error) {
-	return service.repository.GetAll()
-}
+func (service *RequestService) GetAllRequests(query url.Values) ([]*models.Request, error) {
+	statusInt, err := strconv.ParseInt(query.Get("status"), 10, 8)
+	if err != nil {
+		return service.repository.GetAll()
+	}
+	status := models.RequestStatus(statusInt)
 
-func (service *RequestService) GetAllRequestsWithStatus(status string) ([]*models.Request, error) {
 	return service.repository.GetAllWithStatus(status)
 }
 
@@ -54,5 +58,6 @@ func (service *RequestService) GetRequest(id string) (*models.Request, error) {
 }
 
 func (service *RequestService) AddRequest(request *models.Request) (string, error) {
+	request.Status = models.Pending
 	return service.repository.Add(request)
 }

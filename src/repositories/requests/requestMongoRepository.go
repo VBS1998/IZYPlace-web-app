@@ -62,8 +62,39 @@ func (repo *RequestMongoRepository) GetAll() ([]*models.Request, error) {
 	return results, nil
 }
 
-func (repo *RequestMongoRepository) GetAllWithStatus(status string) ([]*models.Request, error) {
-	return nil, nil
+func (repo *RequestMongoRepository) GetAllWithStatus(status models.RequestStatus) ([]*models.Request, error) {
+	// Create a context with a timeout
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	// Get the collection from the client
+	collection := repo.Database.Collection(REQUESTS_MONGO_COLLECTION_NAME)
+
+	// Find all documents in the collection
+	cursor, err := collection.Find(ctx, bson.D{{Key: "status", Value: status}})
+	if err != nil {
+		return nil, err
+	}
+	defer cursor.Close(ctx)
+
+	// Slice to hold the results
+	results := []*models.Request{}
+
+	// Iterate through the cursor and decode each document
+	for cursor.Next(ctx) {
+		var doc *models.Request
+		if err := cursor.Decode(&doc); err != nil {
+			return nil, err
+		}
+		results = append(results, doc)
+	}
+
+	// Check for errors during iteration
+	if err := cursor.Err(); err != nil {
+		return nil, err
+	}
+
+	return results, nil
 }
 
 func (repo *RequestMongoRepository) Get(id string) (*models.Request, error) {

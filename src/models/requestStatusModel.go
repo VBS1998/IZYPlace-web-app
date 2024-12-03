@@ -3,7 +3,8 @@ package models
 type RequestStatus uint8
 
 const (
-	Pending RequestStatus = iota
+	None RequestStatus = iota
+	Pending
 	Approved
 	Rejected
 )

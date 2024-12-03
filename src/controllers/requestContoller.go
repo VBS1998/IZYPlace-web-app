@@ -10,7 +10,9 @@ import (
 )
 
 func GetRequests(w http.ResponseWriter, r *http.Request) {
-	requests, err := services.GetRequestService().GetAllRequests()
+	query := r.URL.Query()
+
+	requests, err := services.GetRequestService().GetAllRequests(query)
 
 	if err != nil {
 		http.Error(w, "Error Getting Requests", http.StatusInternalServerError)
