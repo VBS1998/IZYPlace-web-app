@@ -2,9 +2,9 @@ import { Listing } from "./listing";
 import { Owner } from "./owner";
 
 export interface ListingRequest {
-    id: string;
+    id?: string;
     listing: Listing;
-    onwer: Owner;
-    status: RequestStatus;
+    owner: Owner;
+    status?: RequestStatus;
   }
   

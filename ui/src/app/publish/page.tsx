@@ -5,9 +5,12 @@ import { useDropzone } from 'react-dropzone'
 import { Upload, X } from 'lucide-react'
 import PageHeader from '@/components/header/header'
 import styles from './PublishPage.module.css'
+import { addRequest } from '@/api/requests/listingRequests'
+import { ListingRequest } from '@/api/models/listingRequest'
+import { imagesUrl } from '@/api/axios'
 
 const PublishPage = () => {
-    const [spaceData, setSpaceData] = useState({
+    const [listingData, setListingData] = useState({
         name: '',
         location: '',
         capacity: '',
@@ -38,7 +41,7 @@ const PublishPage = () => {
 
     const handleSpaceInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target
-        setSpaceData(prevData => ({ ...prevData, [name]: value }))
+        setListingData(prevData => ({ ...prevData, [name]: value }))
     }
     
     const handleUserInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -49,7 +52,14 @@ const PublishPage = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         // Here you would typically send the data to your backend
-        console.log('Space Data:', spaceData)
+        const listing = {
+            ...listingData, 
+            capacity: parseFloat(listingData.capacity),
+            pricePerHour: parseFloat(listingData.pricePerHour),
+            imageUrl: []
+        }
+        const request : ListingRequest = {owner: userData, listing: listing}
+        addRequest(request)
         console.log('Photos:', photos)
     }
 
@@ -102,7 +112,7 @@ const PublishPage = () => {
                         type="text"
                         id="spaceName"
                         name="name"
-                        value={spaceData.name}
+                        value={listingData.name}
                         onChange={handleSpaceInputChange}
                         required
                     />
@@ -113,7 +123,7 @@ const PublishPage = () => {
                         type="text"
                         id="location"
                         name="location"
-                        value={spaceData.location}
+                        value={listingData.location}
                         onChange={handleSpaceInputChange}
                         required
                     />
@@ -125,7 +135,7 @@ const PublishPage = () => {
                             type="number"
                             id="capacity"
                             name="capacity"
-                            value={spaceData.capacity}
+                            value={listingData.capacity}
                             onChange={handleSpaceInputChange}
                             required
                         />
@@ -136,7 +146,7 @@ const PublishPage = () => {
                             type="number"
                             id="pricePerHour"
                             name="pricePerHour"
-                            value={spaceData.pricePerHour}
+                            value={listingData.pricePerHour}
                             onChange={handleSpaceInputChange}
                             required
                         />
@@ -147,7 +157,7 @@ const PublishPage = () => {
                     <textarea
                         id="description"
                         name="description"
-                        value={spaceData.description}
+                        value={listingData.description}
                         onChange={handleSpaceInputChange}
                         required
                     />

@@ -27,7 +27,7 @@ export const getRequestsWithStatus = async (status : number) => {
         .then(handleResponse<ListingRequest>)
 }
 
-export const addRequest = async (request : ListingRequest) => {
+export const addRequest = async (request : Partial<ListingRequest>) => {
     const query = routes.REQUESTS_ROUTE;
 
     return await axiosClient
