@@ -24,6 +24,7 @@ func main() {
 
 	services.SetupListingService(mongoClient)
 	services.SetupRequestService(mongoClient)
+	services.SetupImageService(nil)
 
 	if os.Getenv("ENV") == "dev" {
 		corsObj := handlers.AllowedOrigins([]string{"*"})

@@ -38,7 +38,7 @@ func SetupRequestService(client db.DbClient) {
 
 func GetRequestService() *RequestService {
 	if listing_service == nil {
-		log.Print("ERROR: Listing Service not initialized. Call Setup first.")
+		log.Print("ERROR: Request Service not initialized. Call Setup first.")
 	}
 	return request_service
 }

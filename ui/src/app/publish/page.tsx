@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { Upload, X } from 'lucide-react'
 import PageHeader from '@/components/header/header'
@@ -8,8 +8,12 @@ import styles from './PublishPage.module.css'
 import { addRequest } from '@/api/requests/listingRequests'
 import { ListingRequest } from '@/api/models/listingRequest'
 import { imagesUrl } from '@/api/axios'
+import DropzoneComponent, { DropzoneComponentHandle } from '@/components/dropzone/dropzone'
 
 const PublishPage = () => {
+    const DropzoneComponentRef = useRef<DropzoneComponentHandle>(null)
+    const [uploadProgress, setUploadProgress] = useState(0)
+
     const [listingData, setListingData] = useState({
         name: '',
         location: '',
@@ -24,21 +28,19 @@ const PublishPage = () => {
         phone: '',
     })
 
-    const [photos, setPhotos] = useState<File[]>([])
+    const handleImageUpload = async () => {
+        if (DropzoneComponentRef.current) {
+            const urls = await DropzoneComponentRef.current.uploadImages()
+            return urls
+        }
+    }
+    
+    const handleUploadProgress = (progress: number) => {
+        setUploadProgress(progress)
+    }
 
     const redStar = (<label style={{color: "red"}}>*</ label>)
     
-    const onDrop = (acceptedFiles: File[]) => {
-        setPhotos(prevPhotos => [...prevPhotos, ...acceptedFiles])
-    }
-
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({
-        onDrop,
-        accept: {
-            'image/*': ['.jpeg', '.jpg', '.png']
-        }
-    })
-
     const handleSpaceInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target
         setListingData(prevData => ({ ...prevData, [name]: value }))
@@ -49,22 +51,18 @@ const PublishPage = () => {
         setUserData(prevData => ({ ...prevData, [name]: value }))
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-
+        
+        const urls = await handleImageUpload()
         const listing = {
             ...listingData, 
             capacity: parseFloat(listingData.capacity),
             pricePerHour: parseFloat(listingData.pricePerHour),
-            imageUrl: [] //TODO: Handle images
+            imageUrl: urls ?? []
         }
         const request : ListingRequest = {owner: userData, listing: listing}
         addRequest(request)
-        console.log('Photos:', photos)
-    }
-
-    const removePhoto = (index: number) => {
-        setPhotos(prevPhotos => prevPhotos.filter((_, i) => i !== index))
     }
 
     return (
@@ -164,28 +162,8 @@ const PublishPage = () => {
                 </div>
                 <div className={styles.formGroup}>
                     <label>Photos {redStar}</label>
-                    <div {...getRootProps()} className={styles.dropzone}>
-                        <input {...getInputProps()} />
-                        {isDragActive ? (
-                        <p>Solte as imagens aqui.</p>
-                        ) : (
-                        <p>Clique e arraste as imagens para cá. Ou, se preferir, clique para escolher o arquivo.</p>
-                        )}
-                        <Upload className={styles.uploadIcon} />
-                    </div>
+                    <DropzoneComponent ref={DropzoneComponentRef} onUploadProgress={handleUploadProgress}/>
                 </div>
-                {photos.length > 0 && (
-                <div className={styles.photoPreview}>
-                    {photos.map((photo, index) => (
-                    <div key={index} className={styles.photoItem}>
-                        <img src={URL.createObjectURL(photo)} alt={`Uploaded photo ${index + 1}`} />
-                        <button type="button" onClick={() => removePhoto(index)} className={styles.removePhoto}>
-                        <X size={16} className={styles.xButton} />
-                        </button>
-                    </div>
-                    ))}
-                </div>
-                )}
                 <button type="submit" className={styles.submitButton}>Adicionar Local</button>
             </form>
             </main>
