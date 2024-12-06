@@ -11,6 +11,9 @@ import (
 const (
 	LISTINGS_ROUTE         = "/listings"
 	LISTINGS_ROUTE_WITH_ID = "/listings/{id}"
+	REQUESTS_ROUTE         = "/requests"
+	REQUESTS_ROUTE_WITH_ID = "/requests/{id}"
+	IMAGES_ROUTE           = "/images"
 )
 
 type IZYServer struct {
@@ -26,6 +29,12 @@ func (r *IZYServer) setupAnonymousRoutes(router *mux.Router) {
 	anonymousRoutes.HandleFunc(LISTINGS_ROUTE, controllers.AddListing).Methods(http.MethodPost)
 	anonymousRoutes.HandleFunc(LISTINGS_ROUTE_WITH_ID, controllers.UpdateListing).Methods(http.MethodPut)
 	anonymousRoutes.HandleFunc(LISTINGS_ROUTE_WITH_ID, controllers.DeleteListing).Methods(http.MethodDelete)
+
+	anonymousRoutes.HandleFunc(REQUESTS_ROUTE, controllers.GetRequests).Methods(http.MethodGet)
+	anonymousRoutes.HandleFunc(REQUESTS_ROUTE_WITH_ID, controllers.GetRequest).Methods(http.MethodGet)
+	anonymousRoutes.HandleFunc(REQUESTS_ROUTE, controllers.AddRequest).Methods(http.MethodPost)
+
+	anonymousRoutes.HandleFunc(IMAGES_ROUTE, controllers.UploadImage).Methods(http.MethodPost)
 
 	r.AnonymousRoutes = anonymousRoutes
 

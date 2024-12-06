@@ -22,6 +22,7 @@
 .carousel {
     display: flex;
     gap: 1rem;
+    flex-direction: row;
 }
 
 .embla {
@@ -45,9 +46,9 @@
 
 .embla__slide__single {
     flex: 0 0 100%;
-    width: 40rem;
-    height: 30rem;
-    margin: 8px;
+    min-width: 0;
+    display: flex;
+    margin-left: calc(1rem + 8px);
 }
 
 .navButton {
@@ -63,8 +64,8 @@
 }
 
 .spaceImage {
-    width: 100%;
-    height: 16rem;
     object-fit: cover;
     border-radius: 0.5rem;
+    height: auto;
+    width: 100%;
 }

@@ -47,9 +47,10 @@ const Carousel : FC<CarouselProps> = ({title, listingsData, imagesData, singleCe
                         )) ?? <></>}
                         {imagesData?.map((url: string) => (
                             <div key={url} className={slideStyle}>
-                                <Image src={url} alt={url} layout="fill" objectFit="cover" className={styles.spaceImage} />
+                                <Image src={url} alt={url} width={200} height={120} className={styles.spaceImage}/>
                             </div>
                         )) ?? <></>}
+                        {navButtonDisabled ? <div className={slideStyle}/> : null}
                     </div>
                 </div>
                 <button className={styles.embla__button} onClick={scrollNext} disabled={navButtonDisabled}>

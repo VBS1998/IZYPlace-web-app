@@ -40,20 +40,16 @@ export default function ListingDetails({ params }: {params: Promise<{ id: string
 
             <main className={styles.main}>
                 <div className={styles.imageContainer}>
-                    <Carousel singleCell imagesData={[listing.imageUrl]} />
+                    <Carousel singleCell imagesData={listing.imageUrl} />
                 </div>
                 <div className={styles.content}>
                     <h1 className={styles.title}>{listing.name}</h1>
-                    <div className={styles.locationRating}>
+                    <div className={styles.locationCapacity}>
                         <p className={styles.location}><MapPin size={18} /> {listing.location}</p>
-                        <p className={styles.rating}><Star size={18} /> {listing.rating}</p>
+                        <p className={styles.capacity}><Users size={18} />Capacity: {listing.capacity} people</p>
                     </div>
                     <p className={styles.description}>{listing.description}</p>
                     <div className={styles.details}>
-                        <div className={styles.detailItem}>
-                            <Users size={18} />
-                            <span>Capacity: {listing.capacity} people</span>
-                        </div>
                         <div className={styles.detailItem}>
                             <DollarSign size={18} />
                             <span>Price: ${listing.pricePerHour}/hour</span>

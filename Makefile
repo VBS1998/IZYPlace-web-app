@@ -20,8 +20,12 @@ clear:
 
 docker/all: docker/build docker/run
 
-docker/build:
+docker/build: docker/build_api docker/build_ui
+
+docker/build_api:
 	docker build -t izyplace .
+
+docker/build_ui:
 	docker build -t izyplace-ui ./ui
 
 docker/run:
