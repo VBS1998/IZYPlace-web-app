@@ -1,13 +1,10 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import { useDropzone } from 'react-dropzone'
-import { Upload, X } from 'lucide-react'
+import { useRef, useState } from 'react'
 import PageHeader from '@/components/header/header'
 import styles from './PublishPage.module.css'
 import { addRequest } from '@/api/requests/listingRequests'
 import { ListingRequest } from '@/api/models/listingRequest'
-import { imagesUrl } from '@/api/axios'
 import DropzoneComponent, { DropzoneComponentHandle } from '@/components/dropzone/dropzone'
 
 const PublishPage = () => {
@@ -62,7 +59,8 @@ const PublishPage = () => {
             imageUrl: urls ?? []
         }
         const request : ListingRequest = {owner: userData, listing: listing}
-        addRequest(request)
+        await addRequest(request)
+        window.location.href = "/done"
     }
 
     return (
