@@ -1,4 +1,4 @@
-package main
+package server
 
 import (
 	"log"
@@ -14,29 +14,40 @@ const (
 	REQUESTS_ROUTE         = "/requests"
 	REQUESTS_ROUTE_WITH_ID = "/requests/{id}"
 	IMAGES_ROUTE           = "/images"
+	ADMIN_CALL_WITH_ID     = "/admin/call/{id}"
 )
 
 type IZYServer struct {
 	Router          *mux.Router
 	AnonymousRoutes *mux.Router
+	AdminRoutes     *mux.Router
 }
 
 func (r *IZYServer) setupAnonymousRoutes(router *mux.Router) {
 	anonymousRoutes := router.PathPrefix("/api/").Subrouter()
+	anonymousRoutes.Use(AnonymousMiddleware)
 
 	anonymousRoutes.HandleFunc(LISTINGS_ROUTE, controllers.GetListings).Methods(http.MethodGet)
 	anonymousRoutes.HandleFunc(LISTINGS_ROUTE_WITH_ID, controllers.GetListing).Methods(http.MethodGet)
-	anonymousRoutes.HandleFunc(LISTINGS_ROUTE, controllers.AddListing).Methods(http.MethodPost)
-	anonymousRoutes.HandleFunc(LISTINGS_ROUTE_WITH_ID, controllers.UpdateListing).Methods(http.MethodPut)
-	anonymousRoutes.HandleFunc(LISTINGS_ROUTE_WITH_ID, controllers.DeleteListing).Methods(http.MethodDelete)
 
-	anonymousRoutes.HandleFunc(REQUESTS_ROUTE, controllers.GetRequests).Methods(http.MethodGet)
-	anonymousRoutes.HandleFunc(REQUESTS_ROUTE_WITH_ID, controllers.GetRequest).Methods(http.MethodGet)
 	anonymousRoutes.HandleFunc(REQUESTS_ROUTE, controllers.AddRequest).Methods(http.MethodPost)
 
 	anonymousRoutes.HandleFunc(IMAGES_ROUTE, controllers.UploadImage).Methods(http.MethodPost)
 
 	r.AnonymousRoutes = anonymousRoutes
+
+}
+
+func (r *IZYServer) setupAdminRoutes(router *mux.Router) {
+	adminRoutes := router.PathPrefix("/api/").Subrouter()
+	adminRoutes.Use(AdminMiddleware)
+
+	adminRoutes.HandleFunc(REQUESTS_ROUTE, controllers.GetRequests).Methods(http.MethodGet)
+	adminRoutes.HandleFunc(REQUESTS_ROUTE_WITH_ID, controllers.GetRequest).Methods(http.MethodGet)
+
+	adminRoutes.HandleFunc(ADMIN_CALL_WITH_ID, controllers.CallRequest).Methods(http.MethodPost)
+
+	r.AdminRoutes = adminRoutes
 
 }
 
@@ -56,6 +67,7 @@ func CreateServer() *IZYServer {
 
 	r.setupAnonymousRoutes(r.Router)
 	r.setupImages(r.Router)
+	r.setupAdminRoutes(r.Router)
 
 	return &r
 }

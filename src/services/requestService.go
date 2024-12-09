@@ -61,3 +61,12 @@ func (service *RequestService) AddRequest(request *models.Request) (string, erro
 	request.Status = models.Pending
 	return service.repository.Add(request)
 }
+
+func (service *RequestService) UpdateRequestStatus(request_id string, status models.RequestStatus) error {
+
+	type UpdateStatus struct {
+		Status models.RequestStatus `bson:"status,omitempty"`
+	}
+
+	return service.repository.Update(request_id, UpdateStatus{Status: status})
+}

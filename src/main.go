@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/VBS1998/base-web-app/src/db"
+	"github.com/VBS1998/base-web-app/src/server"
 	"github.com/VBS1998/base-web-app/src/services"
 	"github.com/gorilla/handlers"
 )
@@ -16,7 +17,7 @@ var (
 
 func main() {
 
-	server := CreateServer()
+	server := server.CreateServer()
 
 	mongoClient := db.GetMongoClient()
 	mongoClient.Connect()
@@ -25,6 +26,7 @@ func main() {
 	services.SetupListingService(mongoClient)
 	services.SetupRequestService(mongoClient)
 	services.SetupImageService(nil)
+	services.SetupAdminService()
 
 	if os.Getenv("ENV") == "dev" {
 		corsObj := handlers.AllowedOrigins([]string{"*"})
