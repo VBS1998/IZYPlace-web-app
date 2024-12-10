@@ -1,6 +1,6 @@
 import { Upload, X } from 'lucide-react'
 import styles from './Dropzone.module.css'
-import { FC, forwardRef, useImperativeHandle, useState } from 'react'
+import { forwardRef, useEffect, useImperativeHandle, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { postImage } from '@/api/requests/images';
 
@@ -10,10 +10,11 @@ export interface DropzoneComponentHandle {
 
 interface DropzoneComponentProps {
     onUploadProgress?: (progress: number) => void;
+    onPhotosTotalChanged?: (num: number) => void 
 }
 
 
-const DropzoneComponent = forwardRef<DropzoneComponentHandle, DropzoneComponentProps>(({ onUploadProgress }, ref) => {
+const DropzoneComponent = forwardRef<DropzoneComponentHandle, DropzoneComponentProps>(({ onUploadProgress, onPhotosTotalChanged }, ref) => {
 
     const [photos, setPhotos] = useState<File[]>([])
     const [uploading, setUploading] = useState(false)
@@ -69,6 +70,9 @@ const DropzoneComponent = forwardRef<DropzoneComponentHandle, DropzoneComponentP
         uploadImages,
     }));
 
+    useEffect(() => {
+        onPhotosTotalChanged?.(photos.length)
+    }, [photos.length]);
 
     return (
         <div>

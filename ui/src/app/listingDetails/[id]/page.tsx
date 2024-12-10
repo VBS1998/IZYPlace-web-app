@@ -46,17 +46,17 @@ export default function ListingDetails({ params }: {params: Promise<{ id: string
                     <h1 className={styles.title}>{listing.name}</h1>
                     <div className={styles.locationCapacity}>
                         <p className={styles.location}><MapPin size={18} /> {listing.location}</p>
-                        <p className={styles.capacity}><Users size={18} />Capacity: {listing.capacity} people</p>
+                        <p className={styles.capacity}><Users size={18} />Capacidade: {listing.capacity} pessoas</p>
                     </div>
                     <p className={styles.description}>{listing.description}</p>
                     <div className={styles.details}>
                         <div className={styles.detailItem}>
                             <DollarSign size={18} />
-                            <span>Price: ${listing.pricePerHour}/hour</span>
+                            <span>Preço: R${listing.pricePerHour}/hora</span>
                         </div>
                     </div>
                     
-                    <button onClick={onBookNow} className={styles.bookButton}>Book Now</button>
+                    <button onClick={onBookNow} className={styles.bookButton}>Reservar</button>
                 </div>
             </main>
 
