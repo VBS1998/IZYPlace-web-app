@@ -2,4 +2,64 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    align-items: center;
+}
+
+.pageTitle {
+    font-size: 1.875rem;
+    font-weight: bold;
+    color: #0C314C;
+    margin-bottom: 2rem;
+}
+
+.radioGroup {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    padding: 1rem;
+}
+
+.field {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    border: 1px solid #0C314C;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    width: 10vw;
+}
+
+.field:hover {
+    background-color: #66ADD9;
+}
+
+.radio {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #0C314C;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    display: grid;
+    place-content: center;
+}
+
+.radio:checked {
+    transform: scale(1);
+    background-color: #66ADD9;
+}
+
+.radioLabel {
+    color: #0C314C;
+}
+
+
+@media (max-width: 600px) {
+    .field {
+        padding: 0.25rem;
+    }
+
+    .radioLabel {
+        font-size: 0.9rem;
+    }
 }

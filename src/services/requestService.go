@@ -45,6 +45,7 @@ func GetRequestService() *RequestService {
 
 func (service *RequestService) GetAllRequests(query url.Values) ([]*models.Request, error) {
 	statusInt, err := strconv.ParseInt(query.Get("status"), 10, 8)
+	log.Printf("Status: %d, Err: %v", statusInt, err)
 	if err != nil {
 		return service.repository.GetAll()
 	}

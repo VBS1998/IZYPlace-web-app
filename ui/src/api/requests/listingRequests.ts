@@ -27,7 +27,7 @@ export const getRequest = async (id : string) => {
 }
 
 export const getRequestsWithStatus = async (status : number) => {
-    const query = routes.REQUESTS_ROUTE+'?'+status;
+    const query = routes.REQUESTS_ROUTE+'?status='+status;
 
     return await axiosClient
         .get(query)
