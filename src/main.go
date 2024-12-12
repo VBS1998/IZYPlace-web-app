@@ -30,7 +30,7 @@ func main() {
 
 	if os.Getenv("ENV") == "dev" {
 		corsObj := handlers.AllowedOrigins([]string{"*"})
-		corsHeaders := handlers.AllowedHeaders([]string{"Content-Type", "X-Requested-With"})
+		corsHeaders := handlers.AllowedHeaders([]string{"Content-Type", "X-Requested-With", "Authorization"})
 		corsMethods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS"})
 
 		log.Printf("serving at port %s", port)
