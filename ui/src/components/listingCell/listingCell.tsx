@@ -13,7 +13,7 @@ interface ListingCellProps {
 const ListingCell: FC<ListingCellProps> = ({ listingData, href }: { listingData: Listing, href? : string}) => {
 
     if(!href){
-        href='/listingDetails/${listingData.id}'
+        href='/listingDetails/' + listingData.id
     }
 
     return (
