@@ -30,7 +30,7 @@ const AdminRequestsPage = () => {
 
     return (
         <div className={styles.container}>
-            <h2 className={styles.pageTitle}>AAA</h2>
+            <h2 className={styles.pageTitle}>Revisões: {selected}</h2>
             <RadioGroup value={selected} onChange={setSelected} aria-label="status" className={styles.radioGroup}>
                 {plans.map((plan) => (
                     <Field key={plan} className={styles.field}>
@@ -39,7 +39,7 @@ const AdminRequestsPage = () => {
                     </Field>
                 ))}
             </RadioGroup>
-            <Grid title={"Revisões: " + selected} requestsData={requests}/>
+            <Grid requestsData={requests}/>
         </div>
     )
 }
