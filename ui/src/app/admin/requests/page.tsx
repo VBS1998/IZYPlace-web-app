@@ -16,7 +16,6 @@ const AdminRequestsPage = () => {
 
     useEffect(() => {
         const index = plans.findIndex(plan => plan === selected)
-        console.log(index)
         if(index > 0) {
             getRequestsWithStatus(index).then(reqs => {
                 setRequests(reqs)
