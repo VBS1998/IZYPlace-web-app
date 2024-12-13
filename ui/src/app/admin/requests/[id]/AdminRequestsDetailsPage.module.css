@@ -35,3 +35,10 @@
 .callButton:hover {
     background-color: #99E2F1;
 }
+
+.infoText {
+    display: flex;
+    gap: 8px;
+    color: #0C314C;
+    margin: 2rem 0;
+}
