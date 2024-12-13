@@ -12,7 +12,7 @@ const AdminRequestsPage = () => {
     const plans = [ 'Todos', 'Pendentes', 'Aceitos', 'Recusados']
 
     const [requests, setRequests] = useState<ListingRequest[]>([])
-    let [selected, setSelected] = useState(plans[1])
+    const [selected, setSelected] = useState(plans[1])
 
     useEffect(() => {
         const index = plans.findIndex(plan => plan === selected)
