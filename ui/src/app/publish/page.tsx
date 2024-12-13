@@ -10,6 +10,7 @@ import DropzoneComponent, { DropzoneComponentHandle } from '@/components/dropzon
 const PublishPage = () => {
     const DropzoneComponentRef = useRef<DropzoneComponentHandle>(null)
     const [uploadProgress, setUploadProgress] = useState(0)
+    const [photosTotal, setPhotosTotal] = useState(0)
 
     const [listingData, setListingData] = useState({
         name: '',
@@ -34,6 +35,10 @@ const PublishPage = () => {
     
     const handleUploadProgress = (progress: number) => {
         setUploadProgress(progress)
+    }
+
+    const handlePhotosTotalChanged = (total: number) => {
+        setPhotosTotal(total)
     }
 
     const redStar = (<label style={{color: "red"}}>*</ label>)
@@ -67,103 +72,104 @@ const PublishPage = () => {
         <div className={styles.container}>
             <PageHeader />
             <main className={styles.main}>
-            <h1 className={styles.title}>Criar anúncio</h1>
-            <form onSubmit={handleSubmit} className={styles.form}>
-                <div className={styles.formGroup}>
-                    <label htmlFor="OwnerName">Nome do Proprietário {redStar}</label>
-                    <input
-                        type="text"
-                        id="OwnerName"
-                        name="name"
-                        value={userData.name}
-                        onChange={handleUserInputChange}
-                        required
-                    />
-                </div>
-                <div className={styles.formGroup}>
-                    <label htmlFor="OwnerId">CPF {redStar}</label>
-                    <input
-                        type="text"
-                        id="OwnerId"
-                        name="id"
-                        value={userData.id}
-                        onChange={handleUserInputChange}
-                        required
-                    />
-                </div>
-                <div className={styles.formGroup}>
-                    <label htmlFor="PhoneNumber">Telefone {redStar}</label>
-                    <input
-                        type="text"
-                        id="PhoneNumber"
-                        name="phone"
-                        value={userData.phone}
-                        onChange={handleUserInputChange}
-                        required
-                    />
-                </div>
-                <div className={styles.formGroup}>
-                    <label htmlFor="SpaceName">Nome do Anúncio {redStar}</label>
-                    <input
-                        type="text"
-                        id="spaceName"
-                        name="name"
-                        value={listingData.name}
-                        onChange={handleSpaceInputChange}
-                        required
-                    />
-                </div>
-                <div className={styles.formGroup}>
-                    <label htmlFor="location">Localização {redStar}</label>
-                    <input
-                        type="text"
-                        id="location"
-                        name="location"
-                        value={listingData.location}
-                        onChange={handleSpaceInputChange}
-                        required
-                    />
-                </div>
-                <div style={{ display: "flex", gap: "1rem"  }}>
-                    <div className={styles.formGroup} style={{flexGrow: "1"}}>
-                        <label htmlFor="capacity">Capacidade {redStar}</label>
+                <h1 className={styles.title}>Criar anúncio</h1>
+                <form onSubmit={handleSubmit} className={styles.form}>
+                    <div className={styles.formGroup}>
+                        <label htmlFor="OwnerName">Nome do Proprietário {redStar}</label>
                         <input
-                            type="number"
-                            id="capacity"
-                            name="capacity"
-                            value={listingData.capacity}
+                            type="text"
+                            id="OwnerName"
+                            name="name"
+                            value={userData.name}
+                            onChange={handleUserInputChange}
+                            required
+                        />
+                    </div>
+                    <div className={styles.formGroup}>
+                        <label htmlFor="OwnerId">CPF {redStar}</label>
+                        <input
+                            type="text"
+                            id="OwnerId"
+                            name="id"
+                            value={userData.id}
+                            onChange={handleUserInputChange}
+                            required
+                        />
+                    </div>
+                    <div className={styles.formGroup}>
+                        <label htmlFor="PhoneNumber">Telefone {redStar}</label>
+                        <input
+                            type="text"
+                            id="PhoneNumber"
+                            name="phone"
+                            value={userData.phone}
+                            onChange={handleUserInputChange}
+                            required
+                        />
+                    </div>
+                    <div className={styles.formGroup}>
+                        <label htmlFor="SpaceName">Nome do Anúncio {redStar}</label>
+                        <input
+                            type="text"
+                            id="spaceName"
+                            name="name"
+                            value={listingData.name}
                             onChange={handleSpaceInputChange}
                             required
                         />
                     </div>
-                    <div className={styles.formGroup} style={{flexGrow: "1"}}>
-                        <label htmlFor="pricePerHour">Preço por Hora {redStar}</label>
+                    <div className={styles.formGroup}>
+                        <label htmlFor="location">Localização {redStar}</label>
                         <input
-                            type="number"
-                            id="pricePerHour"
-                            name="pricePerHour"
-                            value={listingData.pricePerHour}
+                            type="text"
+                            id="location"
+                            name="location"
+                            value={listingData.location}
                             onChange={handleSpaceInputChange}
                             required
                         />
                     </div>
-                </div>
-                <div className={styles.formGroup}>
-                    <label htmlFor="description">Descrição {redStar}</label>
-                    <textarea
-                        id="description"
-                        name="description"
-                        value={listingData.description}
-                        onChange={handleSpaceInputChange}
-                        required
-                    />
-                </div>
-                <div className={styles.formGroup}>
-                    <label>Photos {redStar}</label>
-                    <DropzoneComponent ref={DropzoneComponentRef} onUploadProgress={handleUploadProgress}/>
-                </div>
-                <button type="submit" className={styles.submitButton}>Adicionar Local</button>
-            </form>
+                    <div style={{ display: "flex", gap: "1rem"  }}>
+                        <div className={styles.formGroup} style={{flexGrow: "1"}}>
+                            <label htmlFor="capacity">Capacidade {redStar}</label>
+                            <input
+                                type="number"
+                                id="capacity"
+                                name="capacity"
+                                value={listingData.capacity}
+                                onChange={handleSpaceInputChange}
+                                required
+                            />
+                        </div>
+                        <div className={styles.formGroup} style={{flexGrow: "1"}}>
+                            <label htmlFor="pricePerHour">Preço por Hora {redStar}</label>
+                            <input
+                                type="number"
+                                id="pricePerHour"
+                                name="pricePerHour"
+                                value={listingData.pricePerHour}
+                                onChange={handleSpaceInputChange}
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div className={styles.formGroup}>
+                        <label htmlFor="description">Descrição {redStar}</label>
+                        <textarea
+                            id="description"
+                            name="description"
+                            value={listingData.description}
+                            onChange={handleSpaceInputChange}
+                            required
+                        />
+                    </div>
+                    <div className={styles.formGroup}>
+                        <label>Fotos (ao menos duas) {redStar}</label>
+                        <DropzoneComponent ref={DropzoneComponentRef} onUploadProgress={handleUploadProgress} onPhotosTotalChanged={handlePhotosTotalChanged}/>
+                    </div>
+                    {uploadProgress != 0 ? <>{uploadProgress}</> : <></>}
+                    <button type="submit" className={styles.submitButton} disabled={photosTotal < 2}>Adicionar Local</button>
+                </form>
             </main>
         </div>
     )

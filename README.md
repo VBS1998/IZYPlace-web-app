@@ -1,2 +1,11 @@
-# base-web-app
-Repository with the minimum for a web app. Meant to be forked as a starting point.
+# IZYPlace
+
+## How to run locally
+### Backend
+```cd deploy/dev```
+```docker compose up izyplace mongo```
+
+### Frontend
+```cd ui```
+```npm run build && npm run start```
+

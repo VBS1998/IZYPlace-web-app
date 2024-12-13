@@ -13,7 +13,12 @@
     padding: 2rem 1rem;
 }
 
-.bookButton {
+.callButtonContainer {
+    display: flex;
+    gap: 1rem;
+}
+
+.callButton {
     margin-top: 2rem;
     padding: 0.75rem 1.5rem;
     background-color: #3279a6;
@@ -26,6 +31,14 @@
     transition: background-color 0.2s;
 }
 
-.bookButton:hover {
+
+.callButton:hover {
     background-color: #99E2F1;
+}
+
+.infoText {
+    display: flex;
+    gap: 8px;
+    color: #0C314C;
+    margin: 2rem 0;
 }

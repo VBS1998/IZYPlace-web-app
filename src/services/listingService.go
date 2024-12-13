@@ -1,18 +1,12 @@
 package services
 
 import (
-	"errors"
 	"log"
-	"os"
 	"sync"
 
 	"github.com/VBS1998/base-web-app/src/db"
 	"github.com/VBS1998/base-web-app/src/models"
 	repositories "github.com/VBS1998/base-web-app/src/repositories/listings"
-)
-
-const (
-	DEFAULT_ADD_PWD = "D3f4ultP@55"
 )
 
 type ListingService struct {
@@ -55,16 +49,6 @@ func (service *ListingService) GetListing(id string) (*models.Listing, error) {
 	return service.repository.Get(id)
 }
 
-func (service *ListingService) AddListing(listing *models.Listing, pwd string) (string, error) {
-	expectedPwd := os.Getenv("IZYPLACE_ADD_PWD")
-
-	if expectedPwd == "" {
-		expectedPwd = DEFAULT_ADD_PWD
-	}
-
-	if pwd != expectedPwd {
-		return "", errors.New("wrong password")
-	}
-
+func (service *ListingService) AddListing(listing *models.Listing) (string, error) {
 	return service.repository.Add(listing)
 }

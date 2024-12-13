@@ -147,3 +147,21 @@ func (repo *RequestMongoRepository) Add(request *models.Request) (string, error)
 
 	return id.Hex(), nil
 }
+
+func (repo *RequestMongoRepository) Update(id string, request interface{}) error {
+	// Create a context with a timeout
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	// Get the collection from the client
+	collection := repo.Database.Collection(REQUESTS_MONGO_COLLECTION_NAME)
+
+	id_obj, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return err
+	}
+
+	_, err = collection.UpdateByID(ctx, id_obj, bson.D{{Key: "$set", Value: request}})
+
+	return err
+}

@@ -2,57 +2,64 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-  }
-  
-  .main {
     flex: 1;
     padding: 2rem;
     max-width: 800px;
     margin: 0 auto;
-    width: 100%;
-  }
+    width: 18vw;
+    gap: 1rem;
+    align-items: center;
+}
   
-  .title {
+.title {
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 2rem;
     text-align: center;
     color: #0C314C;
-  }
-  
-  .form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  
-  .formGroup {
+}
+
+.form {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-  }
+    align-items: center;
+    width: 100%;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    width: 100%;
+}
   
-  .formGroup label {
+.formGroup label {
     font-weight: 600;
     color: #0C314C;
-  }
+}
   
-  .formGroup input,
-  .formGroup textarea {
+.formGroup input,
+.formGroup textarea {
+    width: 100%;
     padding: 0.5rem;
     border: 1px solid #0C314C;
     border-radius: 4px;
     font-size: 1rem;
     color: #0C314C;
-  }
+}
   
-  .formGroup textarea {
+.formGroup textarea {
     min-height: 100px;
     resize: vertical;
-  }
+}
 
-  
-  .submitButton {
+.showButton {
+    color: #0A3F66;
+}
+
+
+.submitButton {
     background-color: #3279A6;
     color: white;
     border: none;
@@ -62,12 +69,13 @@
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s ease;
-  }
-  
-  .submitButton:hover {
-    background-color: #0A3F66;
-  }
+    width: 50%;
+}
 
-  .submitButton:disabled {
+.submitButton:hover {
+    background-color: #0A3F66;
+}
+
+.submitButton:disabled {
     background-color: grey;
-  }
+}
