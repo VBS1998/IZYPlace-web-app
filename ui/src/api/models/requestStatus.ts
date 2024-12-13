@@ -3,3 +3,5 @@ enum RequestStatus {
     Approved,
     Refused,
 }
+
+export default RequestStatus

@@ -1,0 +1,37 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: white;
+
+}
+
+.main {
+    flex-grow: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.callButtonContainer {
+    display: flex;
+    gap: 1rem;
+}
+
+.callButton {
+    margin-top: 2rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #3279a6;
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+
+.callButton:hover {
+    background-color: #99E2F1;
+}
