@@ -90,7 +90,7 @@ const DropzoneComponent = forwardRef<DropzoneComponentHandle, DropzoneComponentP
                 <div className={styles.photoPreview}>
                     {photos.map((photo, index) => (
                         <div key={index} className={styles.photoItem}>
-                        <Image src={URL.createObjectURL(photo)} alt={`Uploaded photo ${index + 1}`} />
+                        <Image src={URL.createObjectURL(photo)} alt={`Uploaded photo ${index + 1}`} width={60} height={60}/>
                         <button type="button" onClick={() => removePhoto(index)} className={styles.removePhoto}>
                         <X size={16} className={styles.xButton} />
                         </button>

@@ -24,6 +24,7 @@ const PublishPage = () => {
         name: '',
         id: '',
         phone: '',
+        email: '',
     })
 
     const handleImageUpload = async () => {
@@ -51,6 +52,57 @@ const PublishPage = () => {
     const handleUserInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target
         setUserData(prevData => ({ ...prevData, [name]: value }))
+    }
+
+    const handleCPFInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        var value = e.target.value;
+        var cpfPattern = value.replace(/\D/g, '') // Remove qualquer coisa que não seja número
+                                .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o terceiro dígito
+                                .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona ponto após o sexto dígito
+                                .replace(/(\d{3})(\d)/, '$1-$2') // Adiciona traço após o nono dígito
+                                .replace(/(-\d{2})\d+?$/, '$1'); // Impede entrada de mais de 11 dígitosc
+        e.target.value = cpfPattern;
+        setUserData(prevData => ({ ...prevData, ['id']: cpfPattern }))
+    }
+
+    const isCPFValid = (cpf : string) => {
+        cpf = cpf.replace(/\D+/g, '');
+        if (cpf.length !== 11) return false;
+
+        let sum = 0;
+        let remainder = 0;
+        if (/^(\d)\1{10}$/.test(cpf)) return false; // Verifica sequências iguais
+
+        for (let i = 1; i <= 9; i++) sum += parseInt(cpf.substring(i-1, i)) * (11 - i);
+        remainder = (sum * 10) % 11;
+        if ((remainder === 10) || (remainder === 11)) remainder = 0;
+        if (remainder !== parseInt(cpf.substring(9, 10))) return false;
+
+        sum = 0;
+        for (let i = 1; i <= 10; i++) sum += parseInt(cpf.substring(i-1, i)) * (12 - i);
+        remainder = (sum * 10) % 11;
+        if ((remainder === 10) || (remainder === 11)) remainder = 0;
+        if (remainder !== parseInt(cpf.substring(10, 11))) return false;
+
+        return true;
+    }
+
+    const handlePhoneNumber = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        var value = e.target.value;
+        var cpfPattern = value.replace(/\D/g, '') // Remove qualquer coisa que não seja número
+                                .replace(/(\d{2})(\d)/, '\($1\) $2') // Adiciona ponto após o terceiro dígito
+                                .replace(/(\d{5})(\d)/, '$1-$2') // Adiciona ponto após o terceiro dígito
+        e.target.value = cpfPattern;
+        setUserData(prevData => ({ ...prevData, ['phone']: cpfPattern }))
+    }
+
+    const isEmailValid = (email : string) => {
+        return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)
+    }
+
+    const formsValid = () => {
+        return photosTotal >= 4 && isCPFValid(userData.id) && isEmailValid(userData.email)
+
     }
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -92,9 +144,13 @@ const PublishPage = () => {
                             id="OwnerId"
                             name="id"
                             value={userData.id}
-                            onChange={handleUserInputChange}
+                            onChange={handleCPFInputChange}
+                            style={{
+                                borderColor: isCPFValid(userData.id) || userData.id == "" ? "initial" : "red",  // Style input on invalid
+                            }}
                             required
                         />
+                        {!isCPFValid(userData.id) && userData.id != "" && <p style={{ color: "red" }}>CPF Inválido.</p>}
                     </div>
                     <div className={styles.formGroup}>
                         <label htmlFor="PhoneNumber">Telefone {redStar}</label>
@@ -103,9 +159,24 @@ const PublishPage = () => {
                             id="PhoneNumber"
                             name="phone"
                             value={userData.phone}
-                            onChange={handleUserInputChange}
+                            onChange={handlePhoneNumber}
                             required
                         />
+                    </div>
+                    <div className={styles.formGroup}>
+                        <label htmlFor="Email">Email {redStar}</label>
+                        <input
+                            type="text"
+                            id="Email"
+                            name="email"
+                            value={userData.email}
+                            onChange={handleUserInputChange}
+                            style={{
+                                borderColor: isEmailValid(userData.email) || userData.email == "" ? "initial" : "red",  // Style input on invalid
+                            }}
+                            required
+                        />
+                        {!isEmailValid(userData.email) && userData.email != "" && <p style={{ color: "red" }}>Email Inválido.</p>}
                     </div>
                     <div className={styles.formGroup}>
                         <label htmlFor="SpaceName">Nome do Anúncio {redStar}</label>
@@ -164,11 +235,11 @@ const PublishPage = () => {
                         />
                     </div>
                     <div className={styles.formGroup}>
-                        <label>Fotos (ao menos duas) {redStar}</label>
+                        <label>Fotos (ao menos quatro) {redStar}</label>
                         <DropzoneComponent ref={DropzoneComponentRef} onUploadProgress={handleUploadProgress} onPhotosTotalChanged={handlePhotosTotalChanged}/>
                     </div>
                     {uploadProgress != 0 ? <>{uploadProgress}</> : <></>}
-                    <button type="submit" className={styles.submitButton} disabled={photosTotal < 2}>Adicionar Local</button>
+                    <button type="submit" className={styles.submitButton} disabled={!formsValid()}>Adicionar Local</button>
                 </form>
             </main>
         </div>
