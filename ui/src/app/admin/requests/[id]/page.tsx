@@ -46,7 +46,7 @@ export default function AdminRequestsDetailsPage({ params }: {params: Promise<{ 
                 { request ? 
                 <div>
                     <ListingDetails listing={request.listing} /> 
-                    <p className={styles.infoText}><User size={18} />Proprietário: {request.owner.name}, CPF: {request.owner.id}, Telefone: {request.owner.phone}</p>
+                    <p className={styles.infoText}><User size={18} />Proprietário: {request.owner.name}, CPF: {request.owner.id}, Telefone: {request.owner.phone}, Email: {request.owner.email}</p>
                 </div> :
                 <div className={styles.infoText}>Houve um problema com essa request.</div> }
 
